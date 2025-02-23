@@ -1,0 +1,60 @@
+<h2 id="title-id" mat-dialog-title align="center">
+    {{customer.showedSaveOrUpdate}} Customer Infos
+</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input [(ngModel)]="customer.firstName" name="firstName" required matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <textarea [(ngModel)]="customer.lastName" name="lastName" matInput></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input type="number" [(ngModel)]="customer.phoneNum" name="phoneNum" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" [(ngModel)]="customer.emailAddress" name="emailAddress" matInput>
+    </mat-form-field>
+    <div [hidden]="!customer.showedAddVehicule">
+        <h2 id="title-id" style="margin-top: 20px;" mat-dialog-title align="center">
+            {{customer.showedSaveOrUpdate}} Customer Vehicule
+        </h2>
+
+        <mat-form-field appearance="fill">
+            <mat-label>License Plate</mat-label>
+            <input [(ngModel)]="customer.licensePlate" name="licensePlate" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Make</mat-label>
+            <input [(ngModel)]="customer.make" name="make" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Model</mat-label>
+            <input [(ngModel)]="customer.model" name="model" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>VIN</mat-label>
+            <input [(ngModel)]="customer.vin" name="vin" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Body Type</mat-label>
+            <input [(ngModel)]="customer.bodyType" name="bodyType" matInput>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button (click)="onCancel()" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]='!customer.firstName' [mat-dialog-close]="customer">
+        {{customer.showedSaveOrUpdate}}
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,19 @@
+<form [formGroup] ="nestedForm" (ngSubmit) = "onSubmit()">
+
+  <div class="row">
+    <div class="col">
+      <app-order-info formControlName="orderInfo"></app-order-info>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row">
+    <div class="col">
+      <app-order-service-info formControlName="userTable"></app-order-service-info>
+    </div>
+  </div>
+
+  <button mat-raised-button type="submit" (click)="onSubmit()">Submit</button>
+
+</form>

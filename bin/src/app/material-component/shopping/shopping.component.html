@@ -1,0 +1,90 @@
+<div fxLayout="row wrap">
+    <!-- column -->
+    <div fxFlex.gt-lg="66" fxFlex.gt-md="66" fxFlex.gt-xs="100" fxFlex="100">
+
+        <div class="top-table">
+            <input class="filter-prd-form" (keyup)="filterProductTable($event.target.value)"
+                placeholder="Search Product">
+            <button (click)="addProduct()" class=" add-prd">ADD</button>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+            <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>ID</h2>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <h2>Name</h2>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>Quantity</h2>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="unitPrice">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>UnitPrice</h2>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.unitPrice}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalPrice">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>TotalPrice</h2>
+                </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}}</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>Delete</h2>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="removeSelectedRows(element.id)" mat-button color="warn">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h2>Edit</h2>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="editProduct(element.id)" mat-button color="primary">
+                        <span class="material-icons">edit</span>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr style="background-color: #030203c9;" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr id="prdTableHover" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+        </mat-paginator>
+    </div>
+    <!-- column -->
+    <!-- column -->
+    <div fxFlex.gt-lg="33" fxFlex.gt-md="33" fxFlex.gt-xs="100" fxFlex="100">
+
+        <div>Customer Infos in here</div>
+
+    </div>
+    <!-- column -->
+</div>

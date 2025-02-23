@@ -1,0 +1,114 @@
+<h1>
+  <mat-card style="background-color: rgb(0, 143, 230); color: white;" align="center">Orders History</mat-card>
+</h1>
+<div class="top-table">
+  <input class="filter-prd-form" (keyup)="filterProductTable($event.target.value)" placeholder="Search Product">
+  <!-- <button (click)="addProduct()" class=" add-prd">ADD</button> -->
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="orderId">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>OrderID</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="orderDate">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>OrderDate</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <h2>FisrtName</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <h2>LastName</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Phone</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Status</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Amount</h2>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Edit</h2>
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="editProduct(element.id)" mat-button color="primary">
+        <span class="material-icons">edit</span>
+      </button>
+    </td>
+  </ng-container> -->
+
+  <ng-container matColumnDef="view">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>View</h2>
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="editProduct(element.id)" mat-button color="primary">
+        <span class="material-icons">preview</span>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="print_confirm">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Print</h2>
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="editProduct(element.id)" mat-button color="primary">
+        <span class="material-icons">print</span>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>
+      <h2>Delete</h2>
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="removeSelectedRows(element.id)" mat-button color="warn">
+        <span class="material-icons">delete</span>
+      </button>
+    </td>
+  </ng-container> -->
+
+  <tr style="background-color: #030203c9;" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr id="prdTableHover" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+</mat-paginator>

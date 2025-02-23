@@ -1,0 +1,74 @@
+<form [formGroup]="orderInfo">
+          
+    <div class="row">
+
+      <div class="col">
+        <table>
+          <tr><td><label class="order-form-label">Reference</label></td></tr>
+          <tr>
+            <td>
+              <input type="text" formControlName="referenceNumber" class="form-control">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col">
+        <table>
+          <tr><td><label class="order-form-label">Order Number</label></td></tr>
+          <tr>
+            <td>
+              <input type="text" formControlName="orderNumber" class="form-control">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col">
+        <table>
+          <tr><td><label class="order-form-label">Appointment Date</label></td></tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input matInput matInput [matDatepicker]="apptDatePicker" formControlName="appointmentDate">
+                <mat-datepicker-toggle matSuffix [for]="apptDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #apptDatePicker></mat-datepicker>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col">
+        <table>
+          <tr><td><label class="order-form-label">Due Date</label></td></tr>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input matInput matInput [matDatepicker]="dueDatePicker" formControlName="dueDate">
+                <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #dueDatePicker></mat-datepicker>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    
+    <!-- <br/> -->
+
+    <div class="row">
+      <div class="col">
+        <table style="width: 100%;">
+          <tr><td><label class="order-form-label">Description</label></td></tr>
+          <tr>
+            <td>
+              <input type="text" formControlName="description" class="form-control">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+<form>

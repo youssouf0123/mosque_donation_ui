@@ -1,0 +1,25 @@
+<app-layout>
+
+  <!-- <div class="jumbotron text-center">
+    <h1>Djago</h1>
+  </div> -->
+
+  <div class="row text-center" id="imgRow">
+
+    <div *ngFor="let product of products" class="col-md-3 col-sm-6">
+
+      <div class="thumbnail">
+
+        <img src="assets/images/{{product.upcCode}}.jpg">
+        <div class="caption">
+          <small>{{product.name}} - <span>$ {{product.price}}</span> </small>
+        </div>
+
+        <add-to-cart [item]="product" [type]="'dropdown'" [dropdown]="dropDownValues"></add-to-cart>
+
+      </div>
+
+    </div>
+  </div>
+
+</app-layout>

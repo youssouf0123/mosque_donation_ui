@@ -1,0 +1,146 @@
+<form [formGroup]="userTable">
+
+  <mat-table [dataSource]="tableDataSource">
+
+      <!--- Note that these columns can be defined in any order. 
+        The actual rendered columns are set as a property on the row definition" -->
+
+      <ng-container matColumnDef="product">
+        <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+          <mat-form-field>
+            <mat-select formControlName="product" (selectionChange)="onSelectionChange($event, element, i)" required #singleSelect>
+
+              <mat-option>
+                <ngx-mat-select-search 
+                  [formControl]="prdctFilterCtrl" 
+                  placeholderLabel="Find Product..." 
+                  noEntriesFoundLabel="no matching product found">
+                </ngx-mat-select-search>
+              </mat-option>
+        
+              <mat-option *ngFor="let prdct of filteredProducts | async" [value]="prdct.id">
+                {{prdct.name}}
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field><input matInput type="tetx" formControlName="description"></mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="unit_price">
+        <mat-header-cell *matHeaderCellDef> Unit Price </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field><input matInput type="text" formControlName="unit_price"></mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field><input matInput type="text" formControlName="quantity"></mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field><input matInput type="text" formControlName="total"></mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-icon class="delete" (click)="deleteRow(i)">delete_forever</mat-icon>
+          <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <!-- <table class="table table-border" [ngClass]="{'table-dark': mode}">
+
+      <thead class="text-nowrap">
+        <th>Product <span class="ui-column-resizer" dragableColumn> </span></th>
+        <th>Description<span class="ui-column-resizer" dragableColumn> </span></th>
+        <th>Unit Price<span class="ui-column-resizer" dragableColumn> </span></th>
+        <th>Quantity<span class="ui-column-resizer" dragableColumn> </span></th>
+        <th>Total</th>
+        <th></th>
+      </thead>
+      
+      <tbody>
+
+        <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls ; let i=index">
+        
+          <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
+
+            <td>
+                <mat-form-field *ngIf = "loadedProducts">
+                  <mat-select 
+                      formControlName="product" 
+                      placeholder="Select Product" [(value)]="selectedProduct" (selectionChange)="onSelectionChange($event)">
+                    <mat-option *ngFor="let prdct of loadedProducts" [value]="prdct">
+                      {{prdct.name}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              <mat-form-field><input matInput type="tetx" formControlName="description"></mat-form-field>
+            </td>
+            <td>
+              <mat-form-field><input matInput type="text" formControlName="unit_price"></mat-form-field>
+            </td>
+            <td>
+              <mat-form-field><input matInput type="text" formControlName="quantity"></mat-form-field>
+            </td>
+            <td>
+              <mat-form-field><input matInput type="text" formControlName="total"></mat-form-field>
+            </td>
+            <td>
+              <mat-icon class="delete" (click)="deleteRow(i)">delete_forever</mat-icon>
+              <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+            </td>
+            
+          </tr>
+          
+          <tr *ngIf="!group.get('isEditable').value" >
+            <td>{{group.get('product').value}}</td>
+            <td>{{group.get('description').value}}</td>
+            <td>{{group.get('unit_price').value}}</td>
+            <td>{{group.get('quantity').value}}</td>
+            <td>{{group.get('total').value}}</td>
+            <td><mat-icon class="edit" (click)="editRow(group)">edit</mat-icon></td>
+          </tr>
+
+        </ng-container>
+
+      </tbody>
+    </table> -->
+
+    <div class="action-container">
+      <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
+      <!-- <button mat-raised-button [disabled]="userTable.invalid" type="submit" (click)="submitForm()">Submit</button> -->
+    </div>
+
+  </form>
+
+  <div class="output">
+    <p>Form Data:  {{userTable.value | json}}</p>
+    <p>Is Valid: {{userTable.valid}}</p>
+  </div>

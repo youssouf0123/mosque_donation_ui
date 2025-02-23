@@ -1,0 +1,84 @@
+<h1>
+    <mat-card style="background-color: rgb(0, 143, 230); color: white;" align="center">Other Expenses</mat-card>
+</h1>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="expensesForm" novalidate>
+                <!-- <form [formGroup]="expensesForm" (ngSubmit)="onSubmit()" novalidate> -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="form-control" formControlName="amount">
+                            <div
+                                *ngIf="getControl.amount.touched && getControl.amount.invalid"
+                                class="text-danger">
+                                <div *ngIf="getControl.amount.errors.required">Amount is required.</div>
+                                <div *ngIf="getControl.amount.errors?.minlength">Minimum of 1 digit is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Explanation</label>
+                            <textarea type="text" class="form-control" formControlName="explanation"></textarea>
+                            <div
+                                *ngIf="getControl.explanation.touched && getControl.explanation.invalid"
+                                class="text-danger">
+                                <div *ngIf="getControl.explanation.errors.required">Explanation is required.</div>
+                                <div *ngIf="getControl.explanation.errors?.minlength">Minimum of 25 characters is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                <hr />
+                <button type="button" class="cart-checkout-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- <hr/> -->
+
+    <div class="row">
+        <div class="col">
+            <div class="mat-elevation-z8">
+
+                <table mat-table [dataSource]="dataSource">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+                
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                    </ng-container>
+                
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                            showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+                </mat-paginator>
+            
+            </div>
+        </div>
+
+    </div>
+
+</div>

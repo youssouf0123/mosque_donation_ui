@@ -1,0 +1,32 @@
+<h2 id="title-id" mat-dialog-title align="center">
+    {{data.showedSaveOrUpdate}} Product
+</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="product.name" name="name" required matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input type="number" [(ngModel)]="product.quantity" name="quantity" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input [(ngModel)]="product.price" name="price" matInput>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Price Total</mat-label>
+        <input type="number" Number [(ngModel)]="product.price" name="price" matInput>
+    </mat-form-field> -->
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button (click)="onCancel()" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]='!product.name' [mat-dialog-close]="product">
+        {{data.showedSaveOrUpdate}}
+    </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,53 @@
+{ 
+  "teams": 
+  [
+     {
+        "id":1,
+        "name":"oil filter",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     },
+     {
+        "id":2,
+        "name":"Break Pad",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     },
+     {
+        "id":3,
+        "name":"change filter",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     },
+     {
+        "id":4,
+        "name":"tire rotation",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     },
+     {
+        "id":5,
+        "name":"full service",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     },
+     {
+        "id":6,
+        "name":"cleaning engine",
+        "description":" good",
+        "brand":"",
+        "quantity":15,
+        "price":"$40"
+     }
+  ]
+}

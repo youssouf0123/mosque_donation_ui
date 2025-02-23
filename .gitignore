@@ -1,0 +1,13 @@
+.DS_Store
+
+package-lock.json
+
+.angular/
+node_modules/
+
+.classpath
+.project
+.settings/
+target/
+dist
+.idea/
