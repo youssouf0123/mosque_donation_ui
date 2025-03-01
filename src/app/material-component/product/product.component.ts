@@ -18,10 +18,10 @@ import { AlertDialogComponent } from "../../returns/alert-dialog/alert-dialog.co
 export class ProductComponent implements AfterViewInit, OnInit {
 	
 	displayedColumns: string[] = [
-		"id",
 		"name",
+		"phone",
+		"type",
 		"quantity",
-		"price",
 		"delete",
 		"update",
 	]
@@ -36,6 +36,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 
 	name: string | undefined
 	quantity: number = 0
+	phone: string =""
+	donation_type: string | undefined
 	price: number = 0.0
 	deleteItemName: string = "Product"
 
@@ -58,6 +60,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 		this.productService.getProducts().subscribe(
 			(response: Product[]) => {
 				this.dataSource.data = response as Product[]
+				console.log("Youssouf")
+				console.log(this.dataSource.data)
 			},
 			(error: HttpErrorResponse) => {
 				alert(error.message)
@@ -81,10 +85,11 @@ export class ProductComponent implements AfterViewInit, OnInit {
 		const dialogRef = this.dialog.open(AddProductComponent, {
 			width: "800px",
 			data: {
-				showedSaveOrUpdate: "Save",
+				showedSaveOrUpdate: "Donate",
 				name: this.name,
-				quantity: this.quantity,
-				price: this.price
+				phone: this.phone,
+				donation_type: this.donation_type,
+				quantity: this.quantity
 			},
 		});
 
@@ -93,8 +98,9 @@ export class ProductComponent implements AfterViewInit, OnInit {
 			if (result == undefined) {
 				console.debug("You cannot add null object on table")
 				this.name = ""
+				this.phone = ""
+				this.donation_type = ""
 				this.quantity = 0
-				this.price = 0.0
 				return
 			}
 
@@ -143,7 +149,7 @@ export class ProductComponent implements AfterViewInit, OnInit {
 			(editSelectedProduct) => {
 				this.name = editSelectedProduct.name
 				this.quantity = editSelectedProduct.quantity
-				this.price = editSelectedProduct.price
+				// this.price = editSelectedProduct.price
 
 				const dialogRef = this.dialog.open(AddProductComponent, {
 					width: "800px",

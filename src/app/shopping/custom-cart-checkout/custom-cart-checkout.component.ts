@@ -219,7 +219,7 @@ export class CustomCartCheckoutComponent
 						if (item.quantity > product.quantity) {
 							this.name = product.name
 							this.quantity = product.quantity
-							this.price = product.price
+							// this.price = product.price
 							const dialogRef = this.dialog.open(ProductInfosComponent, {
 								width: "800px",
 								data: {

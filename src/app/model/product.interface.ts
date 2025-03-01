@@ -1,9 +1,8 @@
 export interface Product {
 	id: number;
 	name: string;
-	description: string;
-	price: number;
-	image: string;
+	phone: string;
+	donation_type: string;
 	quantity: number;
 	// showedSaveOrUpdate: string;
 }

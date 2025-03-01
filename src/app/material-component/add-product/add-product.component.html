@@ -1,5 +1,5 @@
 <h2 id="title-id" mat-dialog-title align="center">
-    {{data.showedSaveOrUpdate}} Product
+    Fait Donation
 </h2>
 <mat-dialog-content class="mat-typography">
     <mat-form-field appearance="fill">
@@ -8,14 +8,21 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input [(ngModel)]="product.phone" name="phone" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Type De Donation</mat-label>
+        <input [(ngModel)]="product.donation_type" name="donation_type" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
         <mat-label>Quantity</mat-label>
         <input type="number" [(ngModel)]="product.quantity" name="quantity" matInput>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input [(ngModel)]="product.price" name="price" matInput>
-    </mat-form-field>
+   
 
     <!-- <mat-form-field appearance="fill">
         <mat-label>Price Total</mat-label>
