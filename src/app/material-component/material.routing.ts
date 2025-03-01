@@ -20,7 +20,7 @@ import { ReturnsHistoryComponent } from './returns-history/returns-history.compo
 
 export const MaterialRoutes: Routes = [
   {
-    path: 'product',
+    path: 'donator-list',
     component: ProductComponent
   },
   {
@@ -28,7 +28,7 @@ export const MaterialRoutes: Routes = [
     component: OrdersHistoryComponent
   },
   {
-    path: 'pending-orders',
+    path: 'donation-per-type',
     component: PendingOrdersComponent
   },
   {

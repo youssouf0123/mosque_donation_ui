@@ -22,6 +22,11 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiServerUrl}/product/all`);
   }
 
+  public getProductQuantityAndType (): Observable<any[]>
+  {
+    return this.http.get<any[]>(`${this.apiServerUrl}/product/typeQty`);
+  }
+
   public getProductById (prdId: number): Observable<Product>
   {
     return this.http.get<Product>(`${this.apiServerUrl}/product/find/${prdId}`);

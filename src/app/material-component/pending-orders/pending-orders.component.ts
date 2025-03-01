@@ -24,16 +24,8 @@ import { Router } from "@angular/router"
 })
 export class PendingOrdersComponent implements AfterViewInit, OnInit {
 	displayedColumns: string[] = [
-		"orderId",
-		"orderDate",
-		"firstName",
-		"lastName",
-		"phone",
-		"status",
-		"edit",
-		"view",
-		"print_confirm",
-		"delete",
+		"type",
+		"quantity"
 	]
 	name: string | undefined
 	quantity: number = 0
@@ -43,9 +35,9 @@ export class PendingOrdersComponent implements AfterViewInit, OnInit {
 
 	@ViewChild(MatSort) prdTbSort = new MatSort()
 
-	dataSource = new MatTableDataSource<Order>()
+	dataSource = new MatTableDataSource<any>()
 
-	public orders: Order[] = this.dataSource.data
+	public products: any[] = this.dataSource.data
 
 	orderId: number
 	customerFirstName: string
@@ -63,12 +55,12 @@ export class PendingOrdersComponent implements AfterViewInit, OnInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private orderService: OrderService,
+		private productService: ProductService,
 		private _router: Router,
 	) {}
 
 	ngOnInit() {
-		this.getAllPendingOrders()
+		this.getProductQuantityAndType()
 	}
 
 	ngAfterViewInit() {
@@ -77,53 +69,21 @@ export class PendingOrdersComponent implements AfterViewInit, OnInit {
 		this.dataSource.sort = this.prdTbSort
 	}
 
-	public getAllPendingOrders(): void {
-		this.orderService.getAllPendingOrders().subscribe(
-			(response: Order[]) => {
-				this.dataSource.data = response as Order[]
+	public getProductQuantityAndType(): void {
+		this.productService.getProductQuantityAndType().subscribe(
+			(response: any) => {
+				
+				this.dataSource.data = response as any[]
+
 			},
 			(error: HttpErrorResponse) => {
-				alert("YOussouf " + error.message)
+				alert("Youssouf " + error.message)
 			},
 		)
 	}
 
 	filterProductTable(filterValue: string) {
 		this.dataSource.filter = filterValue.trim().toLowerCase()
-	}
-
-	viewOrder(orderId: number) {
-		this.orderService.getPdf(orderId).subscribe((response) => {
-			var file = new Blob([response], { type: "application/pdf" })
-			var fileURL = URL.createObjectURL(file)
-			window.open(fileURL)
-		})
-	}
-
-	printOrderById(orderId: number) {
-		this._router.navigateByUrl("/orders-history")
-		this.orderService.printOrderById(orderId).subscribe(
-			(product: Product) => {
-				if (product != null) {
-					this.name = product.name
-					this.quantity = product.quantity
-					// this.price = product.price
-					const dialogRef = this.dialog.open(ProductInfosComponent, {
-						width: "800px",
-						data: {
-							name: this.name,
-							quantity: this.quantity,
-							price: this.price,
-						},
-					})
-				}
-
-				this.getAllPendingOrders()
-			},
-			(error: HttpErrorResponse) => {
-				alert("Youssouf " + error.message)
-			},
-		)
 	}
 
 	// addProduct()
@@ -203,9 +163,9 @@ export class PendingOrdersComponent implements AfterViewInit, OnInit {
 			.afterClosed()
 			.subscribe((confirm) => {
 				if (confirm) {
-					this.orderService.deleteOrder(id).subscribe(() => {
+					this.productService.deleteProduct(id).subscribe(() => {
 						this.dataSource.data = this.dataSource.data.filter(
-							(p: Order) => p.id != id,
+							(p: Product) => p.id != id,
 						)
 					})
 				}

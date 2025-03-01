@@ -17,11 +17,11 @@ const MENUITEMS = [
 
 	{ state: 'shopping-home', name: 'Shopping', type: 'link', icon: 'all_inclusive' },
 
-	{ state: 'product', type: 'link', name: 'Product', icon: 'assistant' },
+	{ state: 'donator-list', type: 'link', name: 'Lists Donateurs', icon: 'assistant' },
 
 	// { state: 'vehicules', type: 'link', name: 'Vehicles', icon: 'view_list' },
 
-	{ state: 'pending-orders', type: 'link', name: 'Pending Orders', icon: 'view_comfy' },
+	{ state: 'donation-per-type', type: 'link', name: 'Donation par Type', icon: 'view_comfy' },
 
 	{ state: 'orders-history', type: 'link', name: 'Order History', icon: 'assignment_turned_in' },
 

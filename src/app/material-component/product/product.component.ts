@@ -149,6 +149,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 			(editSelectedProduct) => {
 				this.name = editSelectedProduct.name
 				this.quantity = editSelectedProduct.quantity
+				this.phone = editSelectedProduct.phone
+				this.donation_type = editSelectedProduct.donation_type
 				// this.price = editSelectedProduct.price
 
 				const dialogRef = this.dialog.open(AddProductComponent, {
@@ -158,7 +160,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 						id: editSelectedProduct.id,
 						name: this.name,
 						quantity: this.quantity,
-						price: this.price,
+						phone: this.phone,
+						donation_type: this.donation_type
 					},
 				})
 
@@ -167,7 +170,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 						console.debug("You cannot add null object on table")
 						this.name = ""
 						this.quantity = 0
-						this.price = 0.0
+						this.phone = ""
+						this.donation_type = ""
 						return
 					}
 					this.productService.updateProduct(result).subscribe(
@@ -181,7 +185,8 @@ export class ProductComponent implements AfterViewInit, OnInit {
 							this.getProducts()
 							this.name = ""
 							this.quantity = 0
-							this.price = 0.0
+							this.phone = ""
+							this.donation_type = ""
 						},
 						(error: HttpErrorResponse) => {
 							alert(error.message)
