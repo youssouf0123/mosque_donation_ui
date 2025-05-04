@@ -1,4 +1,5 @@
 import 'hammerjs';
+
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,7 +13,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialRoutes } from './material.routing';
 
-import { VehiculesComponent } from './vehicules/vehicules.component';
 import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { StepperComponent } from './stepper/stepper.component';
@@ -21,10 +21,12 @@ import { ChipsComponent } from './chips/chips.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.component';
 import { ProgressComponent } from './progress/progress.component';
+
 import {
   DialogComponent,
   DialogOverviewExampleDialogComponent
 } from './dialog/dialog.component';
+
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
@@ -34,10 +36,8 @@ import { ProductComponent } from './product/product.component';
 import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-delete-product.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddVehiculeComponent } from './add-vehicule/add-vehicule.component';
-import { PendingOrdersComponent } from './pending-orders/pending-orders.component'; 
 import { OrdersHistoryComponent } from './orders-history/orders-history.component';
 import { ProductInfosComponent } from './product-infos/product-infos.component';
-import { ReturnsHistoryComponent } from './returns-history/returns-history.component';
 
 @NgModule({
   imports: [
@@ -55,7 +55,6 @@ import { ReturnsHistoryComponent } from './returns-history/returns-history.compo
   declarations: [
     ProductComponent,
     OrdersHistoryComponent,
-    VehiculesComponent,
     MenuComponent,
     TabsComponent,
     StepperComponent,
@@ -74,9 +73,8 @@ import { ReturnsHistoryComponent } from './returns-history/returns-history.compo
     ConfirmDeleteProductComponent,
     AddCustomerComponent,
     AddVehiculeComponent,
-    PendingOrdersComponent,
-    ProductInfosComponent,
-    ReturnsHistoryComponent
+    ProductInfosComponent
   ]
 })
-export class MaterialComponentsModule {}
+
+export class MaterialComponentsModule { }

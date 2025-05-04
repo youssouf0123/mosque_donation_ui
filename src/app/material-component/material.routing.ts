@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProductComponent } from './product/product.component';
-import { OrdersHistoryComponent } from './orders-history/orders-history.component'; 
-import { VehiculesComponent } from './vehicules/vehicules.component';
+import { OrdersHistoryComponent } from './orders-history/orders-history.component';
 import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { StepperComponent } from './stepper/stepper.component';
@@ -15,8 +14,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
-import { ReturnsHistoryComponent } from './returns-history/returns-history.component'
 
 export const MaterialRoutes: Routes = [
   {
@@ -26,14 +23,6 @@ export const MaterialRoutes: Routes = [
   {
     path: 'orders-history',
     component: OrdersHistoryComponent
-  },
-  {
-    path: 'donation-per-type',
-    component: PendingOrdersComponent
-  },
-  {
-    path: 'vehicules',
-    component: VehiculesComponent
   },
   {
     path: 'menu',
@@ -86,9 +75,5 @@ export const MaterialRoutes: Routes = [
   {
     path: 'slide-toggle',
     component: SlideToggleComponent
-  },
-  {
-	path: 'returns-history',
-	component: ReturnsHistoryComponent
-}
+  }
 ];
