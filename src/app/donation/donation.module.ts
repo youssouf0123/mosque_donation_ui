@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { DonationRoutingModule } from './donation-routing.module';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     HomeComponent
   ],
   imports: [
+    DonationRoutingModule,
+
     CommonModule,
-    DonationRoutingModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class DonationModule { }
