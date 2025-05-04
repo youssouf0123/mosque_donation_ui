@@ -27,15 +27,9 @@ export const AppRoutes: Routes = [
 			},
 
 
-
-
 			{
 				path: '',
 				loadChildren: () => import('./shopping/shopping.module').then(shop => shop.ShoppingModule)
-			},
-			{
-				path: '',
-				loadChildren: () => import ('./returns/returns.module').then(r => r.ReturnsModule)
 			},
 			{
 				path: '',

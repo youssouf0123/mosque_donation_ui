@@ -8,7 +8,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
 import { HttpErrorResponse } from "@angular/common/http"
 import { ConfirmDeleteProductComponent } from "../confirm-delete-product/confirm-delete-product.component"
-import { AlertDialogComponent } from "../../returns/alert-dialog/alert-dialog.component"
+import { AlertDialogComponent } from "../alert-dialog/alert-dialog.component"
 
 @Component({
 	selector: "app-product",
