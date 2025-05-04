@@ -9,7 +9,7 @@ export const AppRoutes: Routes = [
 		children: [
 			{
 				path: '',
-				redirectTo: '/shopping-home',
+				redirectTo: '/donation-home',
 				pathMatch: 'full'
 			},
 			{
@@ -23,11 +23,15 @@ export const AppRoutes: Routes = [
 			},
 			{
 				path: '',
-				loadChildren: () => import('./shopping/shopping.module').then(shop => shop.ShoppingModule)
+				loadChildren: () => import('./donation/donation.module').then(donation => donation.DonationModule)
 			},
+
+
+
+
 			{
 				path: '',
-				loadChildren: () => import ('./returns/returns.module').then(r => r.ReturnsModule)
+				loadChildren: () => import('./shopping/shopping.module').then(shop => shop.ShoppingModule)
 			},
 			{
 				path: '',
