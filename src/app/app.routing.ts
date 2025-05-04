@@ -24,12 +24,6 @@ export const AppRoutes: Routes = [
 			{
 				path: '',
 				loadChildren: () => import('./donation/donation.module').then(donation => donation.DonationModule)
-			},
-
-
-			{
-				path: '',
-				loadChildren: () => import('./shopping/shopping.module').then(shop => shop.ShoppingModule)
 			}
 		]
 	}

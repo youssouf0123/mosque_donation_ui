@@ -34,10 +34,8 @@ import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ProductComponent } from './product/product.component';
 import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-delete-product.component';
-import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddVehiculeComponent } from './add-vehicule/add-vehicule.component';
 import { OrdersHistoryComponent } from './orders-history/orders-history.component';
-import { ProductInfosComponent } from './product-infos/product-infos.component';
 
 @NgModule({
   imports: [
@@ -71,9 +69,7 @@ import { ProductInfosComponent } from './product-infos/product-infos.component';
     SlideToggleComponent,
     AddProductComponent,
     ConfirmDeleteProductComponent,
-    AddCustomerComponent,
-    AddVehiculeComponent,
-    ProductInfosComponent
+    AddVehiculeComponent
   ]
 })
 
