@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { ProductComponent } from './product/product.component';
-import { OrdersHistoryComponent } from './orders-history/orders-history.component';
 import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { StepperComponent } from './stepper/stepper.component';
@@ -19,10 +18,6 @@ export const MaterialRoutes: Routes = [
   {
     path: 'donator-list',
     component: ProductComponent
-  },
-  {
-    path: 'orders-history',
-    component: OrdersHistoryComponent
   },
   {
     path: 'menu',
