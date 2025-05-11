@@ -1,1 +1,87 @@
-<p>register-donation works!</p>
+<!-- https://getbootstrap.com/docs/5.0/layout/columns/ -->
+<!-- https://material.angular.io/components/select/overview -->
+<!-- https://www.itsolutionstuff.com/post/angular-select-dropdown-exampleexample.html -->
+
+<div class="container">
+
+	<div class="row justify-content-start">
+
+		<!--	Right side of screen -->
+		<div class="col">
+		
+		<h2 class="jumbotron text-center">Register Donation</h2>
+
+			<form [formGroup]="userForm" novalidate>
+				<!-- <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate> -->
+
+				<div class="row justify-content-start">
+
+					<div class="col">
+						<div class="form-group">
+							<label>First Name</label> <input type="text" class="form-control"
+								formControlName="firstName">
+							<div
+								*ngIf="getControl.firstName.touched && getControl.firstName.invalid"
+								class="text-danger">
+								<div *ngIf="getControl.firstName.errors.required">First
+									Name is required.</div>
+								<div *ngIf="getControl.firstName.errors?.minlength">Minimum
+									4 character are required.</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col">
+						<div class="form-group">
+							<label>Last Name</label> <input type="text" class="form-control"
+								formControlName="lastName">
+							<div
+								*ngIf="getControl.lastName.touched && getControl.lastName.invalid"
+								class="text-danger">
+								<div *ngIf="getControl.lastName.errors.required">Last Name
+									is required.</div>
+								<div *ngIf="getControl.lastName.errors?.minlength">Minimum
+									4 character are required.</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row justify-content-start">
+
+					<div class="col">
+						<div class="form-group">
+							<label>Address</label>
+							<textarea type="text" class="form-control"
+								formControlName="address"></textarea>
+						</div>
+					</div>
+
+					<div class="col">
+						<div class="form-group">
+							<label>Phone</label> <input type="text" class="form-control"
+								formControlName="phone">
+							<div *ngIf="getControl.phone.touched && getControl.phone.invalid"
+								class="text-danger">
+								<div *ngIf="getControl.phone.errors.required">Phone is
+									required.</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<hr />
+
+				<!-- 		Only make visible when in edit mode. Clear form and redirect to pending-orders -->
+				<button class="btn btn-danger" *ngIf="!this.isAddMode" type="submit"
+					(click)="cancel()">Cancel</button>
+
+			</form>
+
+		</div>
+
+	</div>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 
 
 import { Router } from '@angular/router';
@@ -11,82 +11,114 @@ import { OrderService } from "../../services/order.service"
 import { first } from 'rxjs/operators';
 import { CartService } from 'ng-shopping-cart';
 import { ProductCartItem } from '../../model/product-cart-item.model';
+import { ProductService } from "../../services/product.service"
+import { Product } from "../../model/product.interface"
+
+import {
+	HttpErrorResponse,
+	HttpRequest,
+	HttpResponse,
+} from "@angular/common/http"
+
+import { MatPaginator } from "@angular/material/paginator"
+import { MatSort } from "@angular/material/sort"
+import { MatDialog } from "@angular/material/dialog"
+import { MatTableDataSource } from "@angular/material/table"
+
+import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements AfterViewInit, OnInit {
 
-  orderId: number;
-  isAddMode: boolean;
-  loading = false;
-  submitted = false;
+  displayedColumns: string[] = [
+    "type",
+    "quantity"
+  ]
+  name: string | undefined
+  quantity: number = 0
+  price: number = 0.0
 
-  userForm: FormGroup;
+  @ViewChild(MatPaginator) paginator!: MatPaginator
 
-  httpSettings: CheckoutHttpSettings = {
-    //		"url": 'http://myapi.com/',
-    "url": 'http://localhost:8081/autoshop/orders/add',
-    "method": 'POST',
-    "options": {
-      headers: new HttpHeaders({
-        //				'Content-Type': 'application/json'
-        "Authorization": 'Bearer my-auth-token'
+  @ViewChild(MatSort) prdTbSort = new MatSort()
 
-      })
-    }
-  };
+  dataSource = new MatTableDataSource<any>()
+
+  public products: any[] = this.dataSource.data
+
+  orderId: number
+  customerFirstName: string
+  customerLastName: string
+  customerPhoneNum: number
+  customerAddress: string
+  customerCity: string
+  customerCountry: string
+  amount: number
+  invoiceDOCX: ArrayBuffer
+  invoicePDF: ArrayBuffer
+  orderDate: string
+  status: string
+  deleteItemName: string = "Product"
 
   constructor(
-    public formBuilder: FormBuilder,
-    private orderService: OrderService,
-    private _cartService: CartService<ProductCartItem>,
-    private _router: Router
+    public dialog: MatDialog,
+    private productService: ProductService,
+    private _router: Router,
   ) { }
 
-  ngOnInit(): void {
-
-    this.orderId = history.state.id;
-    this.isAddMode = !this.orderId;
-
-    this.userForm = this.formBuilder.group({
-      id: [''],
-      firstName: ['', [Validators.required, Validators.minLength(4)]],
-      lastName: ['', [Validators.required, Validators.minLength(4)]],
-      address: [''],
-      phone: ['', [Validators.required]]
-    });
-
-    if (!this.isAddMode) {
-      this._cartService.clear();
-      this.orderService.findOrderByIdForEdit(this.orderId, "PENDING")
-        .pipe(first())
-        .subscribe(x => {
-          //					console.debug(x);
-          x.cart.items.forEach((entry) => {
-            const productCartItem: ProductCartItem = new ProductCartItem(entry);
-            this._cartService.addItem(productCartItem);
-          });
-          this.userForm.patchValue(x);
-        });
-    }
-
+  ngOnInit() {
+    this.getProductQuantityAndType()
   }
 
-  get getControl() {
-    return this.userForm.controls;
+  ngAfterViewInit() {
+    // this.dataSource = new MatTableDataSource<Product>( this.products );
+    this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.prdTbSort
   }
 
-  onSubmit() {
-    console.debug(this.userForm);
+  public getProductQuantityAndType(): void {
+    this.productService.getProductQuantityAndType().subscribe(
+      (response: any) => {
+
+        this.dataSource.data = response as any[]
+
+      },
+      (error: HttpErrorResponse) => {
+        alert("Youssouf " + error.message)
+      },
+    )
   }
 
-  cancel() {
-    console.debug('cancelling!');
-    this._cartService.clear();
-    this._router.navigateByUrl('/pending-orders');
+  filterProductTable(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase()
+  }
+
+  removeSelectedRows(id: number) {
+    this.dialog
+      .open(ConfirmDeleteProductComponent, {
+        data: {
+          deleteItemName: this.deleteItemName,
+        },
+      })
+
+      .afterClosed()
+      .subscribe((confirm) => {
+        if (confirm) {
+          this.productService.deleteProduct(id).subscribe(() => {
+            this.dataSource.data = this.dataSource.data.filter(
+              (p: Product) => p.id != id,
+            )
+          })
+        }
+      })
+  }
+
+  editOrder(item: any) {
+    this._router.navigateByUrl("/shopping-home", { state: item })
   }
 
 }
