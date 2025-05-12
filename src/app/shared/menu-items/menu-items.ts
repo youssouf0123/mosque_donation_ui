@@ -14,7 +14,7 @@ export interface Menu {
 const MENUITEMS = [
 	{ state: 'donation-home', name: 'Donations', type: 'link', icon: 'all_inclusive' },
 
-	{ state: 'register-donation', type: 'link', name: 'Register Donation', icon: 'view_comfy' },
+	{ state: 'manage-donations', type: 'link', name: 'Manage Donations', icon: 'view_comfy' },
 
 	{ state: 'donors', type: 'link', name: 'Donors', icon: 'assistant' },
 

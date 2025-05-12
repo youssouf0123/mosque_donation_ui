@@ -1,6 +1,6 @@
 <h1>
 	<mat-card style="background-color: rgb(0, 143, 230); color: white;" align="center">
-		Donors
+		Manage Donations
 	</mat-card>
 </h1>
 <div class="container">
@@ -12,7 +12,7 @@
 			<div class="top-table">
 				<input class="filter-prd-form" (keyup)="filterProductTable($event.target.value)"
 					placeholder="Search name">
-				<!-- <button (click)="addProduct()" class=" add-prd">Fait Donation</button> -->
+				<button (click)="addProduct()" class=" add-prd">Fait Donation</button>
 			</div>
 
 			<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>

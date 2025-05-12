@@ -23,7 +23,7 @@ const routes: Routes = [
 				component: RecipientComponent
 			},
 			{
-				path: 'register-donation',
+				path: 'manage-donations',
 				component: RegisterDonationComponent
 			}
 		]
