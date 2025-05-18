@@ -1,17 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { MatTableDataSource } from "@angular/material/table"
-import { MatPaginator } from "@angular/material/paginator"
-import { MatSort } from "@angular/material/sort"
-
-import { MatDialog } from "@angular/material/dialog"
-import { ProductService } from "../../services/product.service"
-import { HttpErrorResponse } from "@angular/common/http"
-
-import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
-import { AddDonationComponent } from '../add-donation/add-donation.component';
-import { Donation } from 'src/app/model/donation.interface';
-import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recipient',
@@ -19,193 +7,51 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
   styleUrls: ['./recipient.component.css']
 })
 export class RecipientComponent implements OnInit {
+  // emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
 
-  // constructor() { }
+  userForm: FormGroup;
 
-  // ngOnInit(): void {
-  // }
+  submitted = false;
 
-  displayedColumns: string[] = [
-    "name",
-    "phone",
-    "type",
-    "quantity",
-    "delete",
-    "update",
-  ]
+  countries = [
+    { name: 'Mali', dialCode: '+223' },
+    { name: 'United States', dialCode: '+1' },
+    { name: 'United Kingdom', dialCode: '+44' }
+    // Add more countries as needed
+  ];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
+  selectedCountryCode = '+223';
+  phoneNumber = '';
 
-  @ViewChild(MatSort) prdTbSort = new MatSort()
-
-  dataSource = new MatTableDataSource<Donation>()
-
-  public products: Donation[] = this.dataSource.data
-
-  name: string | undefined
-  quantity: number = 0
-  phone: string =""
-  donation_type: string | undefined
-  price: number = 0.0
-  deleteItemName: string = "Product"
-
-  constructor(
-    public dialog: MatDialog,
-    private productService: ProductService,
-  ) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.getProducts()
-  }
-
-  ngAfterViewInit() {
-    // this.dataSource = new MatTableDataSource<Product>( this.products );
-    this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.prdTbSort
-  }
-
-  public getProducts(): void {
-    this.productService.getProducts().subscribe(
-      (response: Donation[]) => {
-        this.dataSource.data = response as Donation[]
-        console.log("Youssouf")
-        console.log(this.dataSource.data)
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message)
-      },
-    )
-  }
-
-  openDialog(msg: string): void {
-    let dialogRef = this.dialog.open(AlertDialogComponent, {
-      width: "250px",
-      data: { message: msg },
-    })
-  }
-
-  filterProductTable(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase()
-  }
-
-  addProduct() {
-
-    const dialogRef = this.dialog.open(AddDonationComponent, {
-      width: "800px",
-      data: {
-        showedSaveOrUpdate: "Donate",
-        name: this.name,
-        phone: this.phone,
-        donation_type: this.donation_type,
-        quantity: this.quantity
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result: Donation) => {
-
-      if (result == undefined) {
-        console.debug("You cannot add null object on table")
-        this.name = ""
-        this.phone = ""
-        this.donation_type = ""
-        this.quantity = 0
-        return
-      }
-
-      this.productService.addProduct(result).subscribe(
-        (response: Donation) => {
-
-          console.debug(response)
-          
-          if (response.id === null) {
-            this.openDialog(response.name + " already exists in products list.")
-            return
-          }
-
-          // this.products.push( response );
-          this.getProducts()
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message)
-        }
-      );
+    this.userForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      selectedCountryCode: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', [Validators.email]]
     });
   }
 
-  removeSelectedRows(id: number) {
-    this.dialog
-      .open(ConfirmDeleteComponent, {
-        data: {
-          deleteItemName: this.deleteItemName,
-        },
-      })
-
-      .afterClosed()
-      .subscribe((confirm) => {
-        if (confirm) {
-          this.productService.deleteProduct(id).subscribe(() => {
-            this.dataSource.data = this.dataSource.data.filter(
-              (p: Donation) => p.id != id,
-            )
-          })
-        }
-      })
+  get f(): { [key: string]: AbstractControl } {
+    return this.userForm.controls;
   }
 
-  editProduct(id: number) {
-    this.productService.getProductById(id).subscribe(
-      (editSelectedProduct) => {
-        this.name = editSelectedProduct.name
-        this.quantity = editSelectedProduct.quantity
-        this.phone = editSelectedProduct.phone
-        this.donation_type = editSelectedProduct.donation_type
-        // this.price = editSelectedProduct.price
+  onSubmit(): void {
+    this.submitted = true;
 
-        const dialogRef = this.dialog.open(AddDonationComponent, {
-          width: "800px",
-          data: {
-            showedSaveOrUpdate: "Update",
-            id: editSelectedProduct.id,
-            name: this.name,
-            quantity: this.quantity,
-            phone: this.phone,
-            donation_type: this.donation_type
-          },
-        })
+    if (this.userForm.invalid) {
+      return;
+    }
 
-        dialogRef.afterClosed().subscribe((result: Donation) => {
-          if (result == undefined) {
-            console.debug("You cannot add null object on table")
-            this.name = ""
-            this.quantity = 0
-            this.phone = ""
-            this.donation_type = ""
-            return
-          }
-          this.productService.updateProduct(result).subscribe(
-            (response: Donation) => {
-              if (response.id === null) {
-                this.openDialog(
-                  response.name + " already exists in products list.",
-                )
-                return
-              }
-              this.getProducts()
-              this.name = ""
-              this.quantity = 0
-              this.phone = ""
-              this.donation_type = ""
-            },
-            (error: HttpErrorResponse) => {
-              alert(error.message)
-            },
-          )
-        })
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message)
-      },
-    )
+    console.log(JSON.stringify(this.userForm.value, null, 2));
+  }
+
+  onReset(): void {
+    this.submitted = false;
+    this.userForm.reset();
   }
 
 }

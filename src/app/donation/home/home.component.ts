@@ -1,8 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ProductService } from "../../services/product.service"
-
 import {
 	HttpErrorResponse,
 } from "@angular/common/http"
@@ -14,6 +12,7 @@ import { MatTableDataSource } from "@angular/material/table"
 
 import { Donation } from 'src/app/model/donation.interface';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { DonationService } from 'src/app/services/donation.service';
 
 @Component({
   selector: 'app-home',
@@ -54,7 +53,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private productService: ProductService,
+    private donationService: DonationService,
     private _router: Router,
   ) { }
 
@@ -69,7 +68,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   public getProductQuantityAndType(): void {
-    this.productService.getProductQuantityAndType().subscribe(
+    this.donationService.getDonationQuantityAndType().subscribe(
       (response: any) => {
 
         this.dataSource.data = response as any[]
@@ -96,7 +95,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       .afterClosed()
       .subscribe((confirm) => {
         if (confirm) {
-          this.productService.deleteProduct(id).subscribe(() => {
+          this.donationService.deleteDonation(id).subscribe(() => {
             this.dataSource.data = this.dataSource.data.filter(
               (p: Donation) => p.id != id,
             )
@@ -106,7 +105,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   editOrder(item: any) {
-    this._router.navigateByUrl("/shopping-home", { state: item })
+    this._router.navigateByUrl("/donation-home", { state: item })
   }
 
 }

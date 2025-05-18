@@ -5,13 +5,13 @@ import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
 
 import { MatDialog } from "@angular/material/dialog"
-import { ProductService } from "../../services/product.service"
 import { HttpErrorResponse } from "@angular/common/http"
 
 import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
 import { AddDonationComponent } from '../add-donation/add-donation.component';
 import { Donation } from 'src/app/model/donation.interface';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { DonationService } from 'src/app/services/donation.service';
 
 @Component({
 	selector: 'app-register-donation',
@@ -46,7 +46,7 @@ export class RegisterDonationComponent implements OnInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private productService: ProductService,
+		private donationService: DonationService,
 	) { }
 
 	ngOnInit() {
@@ -60,10 +60,9 @@ export class RegisterDonationComponent implements OnInit {
 	}
 
 	public getProducts(): void {
-		this.productService.getProducts().subscribe(
+		this.donationService.getDonations().subscribe(
 			(response: Donation[]) => {
 				this.dataSource.data = response as Donation[]
-				console.log("Youssouf")
 				console.log(this.dataSource.data)
 			},
 			(error: HttpErrorResponse) => {
@@ -107,7 +106,7 @@ export class RegisterDonationComponent implements OnInit {
 				return
 			}
 
-			this.productService.addProduct(result).subscribe(
+			this.donationService.addDonation(result).subscribe(
 				(response: Donation) => {
 
 					console.debug(response)
@@ -138,7 +137,7 @@ export class RegisterDonationComponent implements OnInit {
 			.afterClosed()
 			.subscribe((confirm) => {
 				if (confirm) {
-					this.productService.deleteProduct(id).subscribe(() => {
+					this.donationService.deleteDonation(id).subscribe(() => {
 						this.dataSource.data = this.dataSource.data.filter(
 							(p: Donation) => p.id != id,
 						)
@@ -148,8 +147,9 @@ export class RegisterDonationComponent implements OnInit {
 	}
 
 	editProduct(id: number) {
-		this.productService.getProductById(id).subscribe(
+		this.donationService.getDonationById(id).subscribe(
 			(editSelectedProduct) => {
+
 				this.name = editSelectedProduct.name
 				this.quantity = editSelectedProduct.quantity
 				this.phone = editSelectedProduct.phone
@@ -177,7 +177,7 @@ export class RegisterDonationComponent implements OnInit {
 						this.donation_type = ""
 						return
 					}
-					this.productService.updateProduct(result).subscribe(
+					this.donationService.updateDonation(result).subscribe(
 						(response: Donation) => {
 							if (response.id === null) {
 								this.openDialog(
