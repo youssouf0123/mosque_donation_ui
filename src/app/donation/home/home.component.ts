@@ -1,23 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-
-
 import { Router } from '@angular/router';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpHeaders } from '@angular/common/http'
-import { CheckoutHttpSettings } from 'ng-shopping-cart'
-
-import { OrderService } from "../../services/order.service"
-import { first } from 'rxjs/operators';
-import { CartService } from 'ng-shopping-cart';
-import { ProductCartItem } from '../../model/product-cart-item.model';
 import { ProductService } from "../../services/product.service"
 import { Product } from "../../model/product.interface"
 
 import {
 	HttpErrorResponse,
-	HttpRequest,
-	HttpResponse,
 } from "@angular/common/http"
 
 import { MatPaginator } from "@angular/material/paginator"
