@@ -31,7 +31,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-delete-product.component';
 
 @NgModule({
   imports: [
@@ -60,8 +59,7 @@ import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-
     TooltipComponent,
     SnackbarComponent,
     SliderComponent,
-    SlideToggleComponent,
-    ConfirmDeleteProductComponent
+    SlideToggleComponent
   ]
 })
 

@@ -12,8 +12,8 @@ import { MatSort } from "@angular/material/sort"
 import { MatDialog } from "@angular/material/dialog"
 import { MatTableDataSource } from "@angular/material/table"
 
-import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 import { Donation } from 'src/app/model/donation.interface';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-home',
@@ -87,7 +87,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   removeSelectedRows(id: number) {
     this.dialog
-      .open(ConfirmDeleteProductComponent, {
+      .open(ConfirmDeleteComponent, {
         data: {
           deleteItemName: this.deleteItemName,
         },

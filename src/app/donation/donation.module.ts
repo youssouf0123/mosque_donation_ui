@@ -11,6 +11,7 @@ import { RegisterDonationComponent } from './register-donation/register-donation
 
 import { DemoMaterialModule } from '../demo-material-module';
 import { AddDonationComponent } from './add-donation/add-donation.component';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddDonationComponent } from './add-donation/add-donation.component';
     DonorComponent,
     RecipientComponent,
     RegisterDonationComponent,
-    AddDonationComponent
+    AddDonationComponent,
+    ConfirmDeleteComponent
   ],
   imports: [
     DonationRoutingModule,

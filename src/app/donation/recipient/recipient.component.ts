@@ -8,10 +8,10 @@ import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
 import { HttpErrorResponse } from "@angular/common/http"
 
-import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
 import { AddDonationComponent } from '../add-donation/add-donation.component';
 import { Donation } from 'src/app/model/donation.interface';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-recipient',
@@ -134,7 +134,7 @@ export class RecipientComponent implements OnInit {
 
   removeSelectedRows(id: number) {
     this.dialog
-      .open(ConfirmDeleteProductComponent, {
+      .open(ConfirmDeleteComponent, {
         data: {
           deleteItemName: this.deleteItemName,
         },
