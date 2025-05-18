@@ -16,11 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
-import { ShoppingCartModule } from 'ng-shopping-cart';
 
 import { SpinnerComponent } from './shared/spinner.component';
-
-import {ProductCartItem} from './model/product-cart-item.model'
 
 @NgModule({
   declarations: [
@@ -31,14 +28,6 @@ import {ProductCartItem} from './model/product-cart-item.model'
     AppSidebarComponent
   ],
   imports: [
-			ShoppingCartModule.forRoot({ // <-- Add the cart module to your root module
-			itemType: ProductCartItem,
-			serviceType: 'localStorage',
-			serviceOptions: {
-				storageKey: 'NgShoppingCart',
-				clearOnError: true
-			}
-		}),
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,

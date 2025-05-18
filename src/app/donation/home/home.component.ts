@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProductService } from "../../services/product.service"
-import { Product } from "../../model/product.interface"
 
 import {
 	HttpErrorResponse,
@@ -14,6 +13,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatTableDataSource } from "@angular/material/table"
 
 import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
+import { Donation } from 'src/app/model/donation.interface';
 
 @Component({
   selector: 'app-home',
@@ -98,7 +98,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         if (confirm) {
           this.productService.deleteProduct(id).subscribe(() => {
             this.dataSource.data = this.dataSource.data.filter(
-              (p: Product) => p.id != id,
+              (p: Donation) => p.id != id,
             )
           })
         }

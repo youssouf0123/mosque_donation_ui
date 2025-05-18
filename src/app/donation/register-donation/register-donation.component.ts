@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MatTableDataSource } from "@angular/material/table"
-import { Product } from "../../model/product.interface"
 import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
-
-// import { AddProductComponent } from "../../material-component/add-product/add-product.component"
 
 import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
@@ -14,6 +11,7 @@ import { HttpErrorResponse } from "@angular/common/http"
 import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
 import { AddDonationComponent } from '../add-donation/add-donation.component';
+import { Donation } from 'src/app/model/donation.interface';
 
 @Component({
 	selector: 'app-register-donation',
@@ -35,9 +33,9 @@ export class RegisterDonationComponent implements OnInit {
 
 	@ViewChild(MatSort) prdTbSort = new MatSort()
 
-	dataSource = new MatTableDataSource<Product>()
+	dataSource = new MatTableDataSource<Donation>()
 
-	public products: Product[] = this.dataSource.data
+	public products: Donation[] = this.dataSource.data
 
 	name: string | undefined
 	quantity: number = 0
@@ -63,8 +61,8 @@ export class RegisterDonationComponent implements OnInit {
 
 	public getProducts(): void {
 		this.productService.getProducts().subscribe(
-			(response: Product[]) => {
-				this.dataSource.data = response as Product[]
+			(response: Donation[]) => {
+				this.dataSource.data = response as Donation[]
 				console.log("Youssouf")
 				console.log(this.dataSource.data)
 			},
@@ -98,7 +96,7 @@ export class RegisterDonationComponent implements OnInit {
 			},
 		});
 
-		dialogRef.afterClosed().subscribe((result: Product) => {
+		dialogRef.afterClosed().subscribe((result: Donation) => {
 
 			if (result == undefined) {
 				console.debug("You cannot add null object on table")
@@ -110,7 +108,7 @@ export class RegisterDonationComponent implements OnInit {
 			}
 
 			this.productService.addProduct(result).subscribe(
-				(response: Product) => {
+				(response: Donation) => {
 
 					console.debug(response)
 
@@ -142,7 +140,7 @@ export class RegisterDonationComponent implements OnInit {
 				if (confirm) {
 					this.productService.deleteProduct(id).subscribe(() => {
 						this.dataSource.data = this.dataSource.data.filter(
-							(p: Product) => p.id != id,
+							(p: Donation) => p.id != id,
 						)
 					})
 				}
@@ -170,7 +168,7 @@ export class RegisterDonationComponent implements OnInit {
 					},
 				})
 
-				dialogRef.afterClosed().subscribe((result: Product) => {
+				dialogRef.afterClosed().subscribe((result: Donation) => {
 					if (result == undefined) {
 						console.debug("You cannot add null object on table")
 						this.name = ""
@@ -180,7 +178,7 @@ export class RegisterDonationComponent implements OnInit {
 						return
 					}
 					this.productService.updateProduct(result).subscribe(
-						(response: Product) => {
+						(response: Donation) => {
 							if (response.id === null) {
 								this.openDialog(
 									response.name + " already exists in products list.",
