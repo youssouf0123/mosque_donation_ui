@@ -31,7 +31,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { ProductComponent } from './product/product.component';
 import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-delete-product.component';
 
 @NgModule({
@@ -48,7 +47,6 @@ import { ConfirmDeleteProductComponent } from './confirm-delete-product/confirm-
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
   declarations: [
-    ProductComponent,
     MenuComponent,
     TabsComponent,
     StepperComponent,

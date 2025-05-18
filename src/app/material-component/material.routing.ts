@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ProductComponent } from './product/product.component';
 import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { StepperComponent } from './stepper/stepper.component';
@@ -15,10 +14,6 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 
 export const MaterialRoutes: Routes = [
-  {
-    path: 'donator-list',
-    component: ProductComponent
-  },
   {
     path: 'menu',
     component: MenuComponent
