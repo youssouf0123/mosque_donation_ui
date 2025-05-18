@@ -4,8 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-	apiUrl: "http://localhost:8081/djago",
-	//  apiUrl: 'https://djago-ws.solutionslogiciel.com/autoshop',
+	apiUrl: "http://localhost:8081/mosque-donation",
 	production: false,
 	apiKey: "devKey",
 	taxRate: 5,
