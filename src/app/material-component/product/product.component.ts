@@ -3,12 +3,12 @@ import { MatTableDataSource } from "@angular/material/table"
 import { Product } from "../../model/product.interface"
 import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
-import { AddProductComponent } from "../add-product/add-product.component"
 import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
 import { HttpErrorResponse } from "@angular/common/http"
 import { ConfirmDeleteProductComponent } from "../confirm-delete-product/confirm-delete-product.component"
 import { AlertDialogComponent } from "../alert-dialog/alert-dialog.component"
+import { AddDonationComponent } from "src/app/donation/add-donation/add-donation.component"
 
 @Component({
 	selector: "app-product",
@@ -82,7 +82,7 @@ export class ProductComponent implements AfterViewInit, OnInit {
 
 	addProduct() {
 
-		const dialogRef = this.dialog.open(AddProductComponent, {
+		const dialogRef = this.dialog.open(AddDonationComponent, {
 			width: "800px",
 			data: {
 				showedSaveOrUpdate: "Donate",
@@ -153,7 +153,7 @@ export class ProductComponent implements AfterViewInit, OnInit {
 				this.donation_type = editSelectedProduct.donation_type
 				// this.price = editSelectedProduct.price
 
-				const dialogRef = this.dialog.open(AddProductComponent, {
+				const dialogRef = this.dialog.open(AddDonationComponent, {
 					width: "800px",
 					data: {
 						showedSaveOrUpdate: "Update",

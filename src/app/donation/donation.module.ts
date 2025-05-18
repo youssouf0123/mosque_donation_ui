@@ -10,13 +10,15 @@ import { RecipientComponent } from './recipient/recipient.component';
 import { RegisterDonationComponent } from './register-donation/register-donation.component';
 
 import { DemoMaterialModule } from '../demo-material-module';
+import { AddDonationComponent } from './add-donation/add-donation.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     DonorComponent,
     RecipientComponent,
-    RegisterDonationComponent
+    RegisterDonationComponent,
+    AddDonationComponent
   ],
   imports: [
     DonationRoutingModule,

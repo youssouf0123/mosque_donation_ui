@@ -5,14 +5,13 @@ import { Product } from "../../model/product.interface"
 import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
 
-import { AddProductComponent } from "../../material-component/add-product/add-product.component"
-
 import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
 import { HttpErrorResponse } from "@angular/common/http"
 
 import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
+import { AddDonationComponent } from '../add-donation/add-donation.component';
 
 @Component({
   selector: 'app-recipient',
@@ -91,7 +90,7 @@ export class RecipientComponent implements OnInit {
 
   addProduct() {
 
-    const dialogRef = this.dialog.open(AddProductComponent, {
+    const dialogRef = this.dialog.open(AddDonationComponent, {
       width: "800px",
       data: {
         showedSaveOrUpdate: "Donate",
@@ -162,7 +161,7 @@ export class RecipientComponent implements OnInit {
         this.donation_type = editSelectedProduct.donation_type
         // this.price = editSelectedProduct.price
 
-        const dialogRef = this.dialog.open(AddProductComponent, {
+        const dialogRef = this.dialog.open(AddDonationComponent, {
           width: "800px",
           data: {
             showedSaveOrUpdate: "Update",

@@ -1,23 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-
-import { Router } from '@angular/router';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpHeaders } from '@angular/common/http'
-import { CheckoutHttpSettings } from 'ng-shopping-cart'
-
-import { OrderService } from "../../services/order.service"
-import { first } from 'rxjs/operators';
-import { CartService } from 'ng-shopping-cart';
-import { ProductCartItem } from '../../model/product-cart-item.model';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MatTableDataSource } from "@angular/material/table"
 import { Product } from "../../model/product.interface"
 import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
 
-import { AddProductComponent } from "../../material-component/add-product/add-product.component"
+// import { AddProductComponent } from "../../material-component/add-product/add-product.component"
 
 import { MatDialog } from "@angular/material/dialog"
 import { ProductService } from "../../services/product.service"
@@ -25,16 +13,16 @@ import { HttpErrorResponse } from "@angular/common/http"
 
 import { ConfirmDeleteProductComponent } from "../../material-component/confirm-delete-product/confirm-delete-product.component"
 import { AlertDialogComponent } from "../../material-component/alert-dialog/alert-dialog.component"
-
+import { AddDonationComponent } from '../add-donation/add-donation.component';
 
 @Component({
-  selector: 'app-register-donation',
-  templateUrl: './register-donation.component.html',
-  styleUrls: ['./register-donation.component.css']
+	selector: 'app-register-donation',
+	templateUrl: './register-donation.component.html',
+	styleUrls: ['./register-donation.component.css']
 })
 export class RegisterDonationComponent implements OnInit {
 
-  displayedColumns: string[] = [
+	displayedColumns: string[] = [
 		"name",
 		"phone",
 		"type",
@@ -53,7 +41,7 @@ export class RegisterDonationComponent implements OnInit {
 
 	name: string | undefined
 	quantity: number = 0
-	phone: string =""
+	phone: string = ""
 	donation_type: string | undefined
 	price: number = 0.0
 	deleteItemName: string = "Product"
@@ -61,7 +49,7 @@ export class RegisterDonationComponent implements OnInit {
 	constructor(
 		public dialog: MatDialog,
 		private productService: ProductService,
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.getProducts()
@@ -99,7 +87,7 @@ export class RegisterDonationComponent implements OnInit {
 
 	addProduct() {
 
-		const dialogRef = this.dialog.open(AddProductComponent, {
+		const dialogRef = this.dialog.open(AddDonationComponent, {
 			width: "800px",
 			data: {
 				showedSaveOrUpdate: "Donate",
@@ -125,7 +113,7 @@ export class RegisterDonationComponent implements OnInit {
 				(response: Product) => {
 
 					console.debug(response)
-					
+
 					if (response.id === null) {
 						this.openDialog(response.name + " already exists in products list.")
 						return
@@ -170,7 +158,7 @@ export class RegisterDonationComponent implements OnInit {
 				this.donation_type = editSelectedProduct.donation_type
 				// this.price = editSelectedProduct.price
 
-				const dialogRef = this.dialog.open(AddProductComponent, {
+				const dialogRef = this.dialog.open(AddDonationComponent, {
 					width: "800px",
 					data: {
 						showedSaveOrUpdate: "Update",
