@@ -49,7 +49,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   invoicePDF: ArrayBuffer
   orderDate: string
   status: string
-  deleteItemName: string = "Product"
+  deleteItemName: string = "Donation"
 
   constructor(
     public dialog: MatDialog,

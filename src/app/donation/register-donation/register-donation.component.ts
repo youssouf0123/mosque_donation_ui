@@ -42,7 +42,7 @@ export class RegisterDonationComponent implements OnInit {
 	phone: string = ""
 	donation_type: string | undefined
 	price: number = 0.0
-	deleteItemName: string = "Product"
+	deleteItemName: string = "Donation"
 
 	constructor(
 		public dialog: MatDialog,
