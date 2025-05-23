@@ -68,7 +68,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   public getProductQuantityAndType(): void {
-    this.donationService.getDonationQuantityAndType().subscribe(
+    this.donationService.getDonationsByTypeAndQuantity().subscribe(
       (response: any) => {
 
         this.dataSource.data = response as any[]
