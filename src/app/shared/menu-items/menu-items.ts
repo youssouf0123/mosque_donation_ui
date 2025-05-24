@@ -16,7 +16,7 @@ const MENUITEMS = [
 
 	{ state: 'manage-donations', type: 'link', name: 'Manage Donations', icon: 'view_comfy' },
 
-	{ state: 'donors', type: 'link', name: 'Donors', icon: 'assistant' },
+	// { state: 'donors', type: 'link', name: 'Donors', icon: 'assistant' },
 
 	{ state: 'recipients', type: 'link', name: 'Recipients', icon: 'blur_circular' }
 ];

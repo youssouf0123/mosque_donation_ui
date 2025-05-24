@@ -1,38 +1,45 @@
 <h2 id="title-id" mat-dialog-title align="center">
-    Fait Donation
+    Make a Donation
 </h2>
+
 <mat-dialog-content class="mat-typography">
+
     <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input [(ngModel)]="product.name" name="name" required matInput>
+        <input [(ngModel)]="donation.name" name="name" required matInput>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Phone</mat-label>
-        <input [(ngModel)]="product.phone" name="phone" matInput>
+        <input [(ngModel)]="donation.phone" name="phone" matInput>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
         <mat-label>Type De Donation</mat-label>
-        <input [(ngModel)]="product.donation_type" name="donation_type" matInput>
+        <input [(ngModel)]="donation.donation_type" name="donation_type" matInput>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+        <mat-label>Donation Type</mat-label>
+        <mat-select [(ngModel)]="donation.donation_type">
+            <mat-option *ngFor="let donationType of donationTypes" [value]="donationType.value">
+                {{ donationType.viewValue }}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Quantity</mat-label>
-        <input type="number" [(ngModel)]="product.quantity" name="quantity" matInput>
+        <input type="number" [(ngModel)]="donation.quantity" name="quantity" matInput>
     </mat-form-field>
 
-   
-
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>Price Total</mat-label>
-        <input type="number" Number [(ngModel)]="product.price" name="price" matInput>
-    </mat-form-field> -->
-
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
+
     <button mat-raised-button (click)="onCancel()" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" [disabled]='!product.name' [mat-dialog-close]="product">
+
+    <button mat-raised-button color="primary" [disabled]='!donation.name' [mat-dialog-close]="donation">
         {{data.showedSaveOrUpdate}}
     </button>
 
