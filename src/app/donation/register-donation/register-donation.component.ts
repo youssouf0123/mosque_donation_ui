@@ -82,7 +82,7 @@ export class RegisterDonationComponent implements OnInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase()
 	}
 
-	addProduct() {
+	addDonation() {
 
 		const dialogRef = this.dialog.open(AddDonationComponent, {
 			width: "800px",

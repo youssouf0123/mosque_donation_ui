@@ -2,45 +2,60 @@
     Make a Donation
 </h2>
 
-<mat-dialog-content class="mat-typography">
+<form [formGroup]="donationForm" (ngSubmit)="onSubmit()">
 
-    <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input [(ngModel)]="donation.name" name="name" required matInput>
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label> Name
+        </mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="donationForm.controls.name.touched && donationForm.controls.name.invalid">
+            <span *ngIf="donationForm.controls.name.errors.required">This field is mandatory.</span>
+            <span *ngIf="donationForm.controls.name.errors.pattern">This field is invalid.</span>
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-        <mat-label>Phone</mat-label>
-        <input [(ngModel)]="donation.phone" name="phone" matInput>
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" placeholder="e.g. 5551234567">
+        <mat-error *ngIf="donationForm.controls.phone.touched && donationForm.controls.phone.invalid">
+            <span *ngIf="donationForm.controls.phone.errors.required">This field is mandatory.</span>
+            <span *ngIf="donationForm.controls.phone.errors.pattern">This field is invalid.</span>
+        </mat-error>
     </mat-form-field>
-
-    <!-- <mat-form-field appearance="fill">
-        <mat-label>Type De Donation</mat-label>
-        <input [(ngModel)]="donation.donation_type" name="donation_type" matInput>
-    </mat-form-field> -->
 
     <mat-form-field appearance="fill">
         <mat-label>Donation Type</mat-label>
-        <mat-select [(ngModel)]="donation.donation_type">
+        <mat-select formControlName="donation_type">
             <mat-option *ngFor="let donationType of donationTypes" [value]="donationType.value">
-                {{ donationType.viewValue }}
+                {{ donationType.value }}
             </mat-option>
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Quantity</mat-label>
-        <input type="number" [(ngModel)]="donation.quantity" name="quantity" matInput>
-    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+        <mat-label> Quantity
+        </mat-label>
+        <input type="number" matInput formControlName="quantity" required>
+        <mat-error *ngIf="donationForm.controls.quantity.touched && donationForm.controls.quantity.invalid">
+            <span *ngIf="donationForm.controls.quantity.errors.required">This field is mandatory.</span>
+            <span *ngIf="donationForm.controls.quantity.errors.pattern">This field is invalid.</span>
+        </mat-error>
+i    </mat-form-field>
 
-</mat-dialog-content>
 
-<mat-dialog-actions align="end">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="button" (click)="onReset()" class="btn btn-warning float-right">Reset</button>
+    </div>
+
+</form>
+
+<!-- <mat-dialog-actions align="end">
 
     <button mat-raised-button (click)="onCancel()" mat-dialog-close>Cancel</button>
 
-    <button mat-raised-button color="primary" [disabled]='!donation.name' [mat-dialog-close]="donation">
+    <button mat-raised-button color="primary" [mat-dialog-close]="donation">
         {{data.showedSaveOrUpdate}}
     </button>
 
-</mat-dialog-actions>
+</mat-dialog-actions> -->
