@@ -5,6 +5,8 @@ import { HomeComponent } from '../donation/home/home.component'
 import { DonorComponent } from '../donation/donor/donor.component'
 import { RecipientComponent } from './recipient/recipient.component';
 import { RegisterDonationComponent } from './register-donation/register-donation.component';
+import { ManageDonationComponent } from './manage-donation/manage-donation.component';
+import { DataService } from '../services/data.service';
 
 const routes: Routes = [
 	{
@@ -25,6 +27,10 @@ const routes: Routes = [
 			{
 				path: 'manage-donations',
 				component: RegisterDonationComponent
+			},
+			{
+				path: 'manage-donations-2',
+				component: ManageDonationComponent
 			}
 		]
 	}
@@ -36,7 +42,8 @@ const routes: Routes = [
 		RouterModule.forChild(routes),
 		CommonModule
 	],
-	exports: [RouterModule]
+	exports: [RouterModule],
+	providers: [DataService]
 })
 
 export class DonationRoutingModule { }

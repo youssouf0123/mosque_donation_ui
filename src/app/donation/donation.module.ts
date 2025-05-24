@@ -12,6 +12,11 @@ import { RegisterDonationComponent } from './register-donation/register-donation
 import { DemoMaterialModule } from '../demo-material-module';
 import { AddDonationComponent } from './add-donation/add-donation.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { ManageDonationComponent } from './manage-donation/manage-donation.component';
+
+import { AddDialogComponent } from './manage-donation/dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './manage-donation/dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './manage-donation/dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,11 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
     RecipientComponent,
     RegisterDonationComponent,
     AddDonationComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    ManageDonationComponent,
+    AddDialogComponent,
+    EditDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     DonationRoutingModule,
