@@ -9,8 +9,11 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class DeleteDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+  constructor(
+    public dialogRef: MatDialogRef<DeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    public dataService: DataService
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();

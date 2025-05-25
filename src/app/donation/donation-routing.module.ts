@@ -7,6 +7,7 @@ import { RecipientComponent } from './recipient/recipient.component';
 import { RegisterDonationComponent } from './register-donation/register-donation.component';
 import { ManageDonationComponent } from './manage-donation/manage-donation.component';
 import { DataService } from '../services/data.service';
+import { NotificationService } from '../services/notification.service';
 
 const routes: Routes = [
 	{
@@ -43,7 +44,7 @@ const routes: Routes = [
 		CommonModule
 	],
 	exports: [RouterModule],
-	providers: [DataService]
+	providers: [DataService, NotificationService]
 })
 
 export class DonationRoutingModule { }

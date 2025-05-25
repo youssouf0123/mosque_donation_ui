@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Donation } from 'src/app/model/donation.interface';
 
 @Component({
@@ -11,9 +11,11 @@ import { Donation } from 'src/app/model/donation.interface';
 })
 export class AddDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Donation,
-              public dataService: DataService) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Donation,
+    public dataService: DataService
+  ) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -27,7 +29,7 @@ export class AddDialogComponent {
   }
 
   submit() {
-  // emppty stuff
+    // emppty stuff
   }
 
   onNoClick(): void {

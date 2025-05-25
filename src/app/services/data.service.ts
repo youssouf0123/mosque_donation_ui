@@ -3,88 +3,69 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Donation } from '../model/donation.interface';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class DataService {
 
-    private apiServerUrl = environment.apiUrl;
-    
-    dataChange: BehaviorSubject<Donation[]> = new BehaviorSubject<Donation[]>([]);
+  private apiServerUrl = environment.apiUrl;
 
-    // Temporarily stores data from dialogs
-    dialogData: any;
+  dataChange: BehaviorSubject<Donation[]> = new BehaviorSubject<Donation[]>([]);
 
-    constructor(private httpClient: HttpClient) { }
+  // Temporarily stores data from dialogs
+  dialogData: any;
 
-    get data(): Donation[] {
-        return this.dataChange.value;
-    }
+  constructor(private httpClient: HttpClient, private toasterService: NotificationService) { }
 
-    getDialogData() {
-        return this.dialogData;
-    }
+  get data(): Donation[] {
+    return this.dataChange.value;
+  }
 
-    /** CRUD METHODS */
-    getAllDonations(): void {
-        this.httpClient.get<Donation[]>(`${this.apiServerUrl}/donation`).subscribe(data => {
-          this.dataChange.next(data);
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error);
-          // console.log(error.name + ' ' + error.message);
-        });
-    }
+  getDialogData() {
+    return this.dialogData;
+  }
 
-    // DEMO ONLY, you can find working methods below
-    addDonation(donation: Donation): void {
-        this.dialogData = donation;
-    }
+  /** CRUD METHODS */
+  getAllDonations(): void {
+    this.httpClient.get<Donation[]>(`${this.apiServerUrl}/donation`).subscribe(data => {
+      this.dataChange.next(data);
+    },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        // console.log(error.name + ' ' + error.message);
+      });
+  }
 
-    updateDonation(donation: Donation): void {
-        this.dialogData = donation;
-    }
+  // DEMO ONLY, you can find working methods below
+  addDonation(donation: Donation): void {
+    this.httpClient.post(`${this.apiServerUrl}/donation`, donation).subscribe(data => {
+      this.dialogData = donation;
+      this.toasterService.show('Successfully added', 'OK', 3000);
+    },
+      (err: HttpErrorResponse) => {
+        this.toasterService.show('Error occurred. Details: ' + err.name + ' ' + err.message, 'ERROR', 8000);
+      });
+  }
 
-    deleteDonation(id: number): void {
-        console.log(id);
-    }
+  updateDonation(donation: Donation): void {
+    this.httpClient.put(`${this.apiServerUrl}/donation`, donation).subscribe(data => {
+      this.dialogData = donation;
+      this.toasterService.show('Successfully edited', 'OK', 3000);
+    },
+      (err: HttpErrorResponse) => {
+        this.toasterService.show('Error occurred. Details: ' + err.name + ' ' + err.message, 'ERROR', 8000);
+      }
+    );
+  }
+
+  deleteDonation(id: number): void {
+    this.httpClient.delete(`${this.apiServerUrl}/donation/${id}`).subscribe(data => {
+      this.toasterService.show('Successfully deleted', 'OK', 3000);
+    },
+      (err: HttpErrorResponse) => {
+        this.toasterService.show('Error occurred. Details: ' + err.name + ' ' + err.message, 'ERROR', 8000);
+      }
+    );
+  }
 
 }
-
-
-/* REAL LIFE CRUD Methods I've used in my projects. ToasterService uses Material Toasts for displaying messages:
-
-    // ADD, POST METHOD
-    addItem(kanbanItem: KanbanItem): void {
-    this.httpClient.post(this.API_URL, kanbanItem).subscribe(data => {
-      this.dialogData = kanbanItem;
-      this.toasterService.showToaster('Successfully added', 3000);
-      },
-      (err: HttpErrorResponse) => {
-      this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-    });
-   }
-
-    // UPDATE, PUT METHOD
-     updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.API_URL + kanbanItem.id, kanbanItem).subscribe(data => {
-        this.dialogData = kanbanItem;
-        this.toasterService.showToaster('Successfully edited', 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
-  }
-
-  // DELETE METHOD
-  deleteItem(id: number): void {
-    this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(data['']);
-        this.toasterService.showToaster('Successfully deleted', 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
-  }
-*/
