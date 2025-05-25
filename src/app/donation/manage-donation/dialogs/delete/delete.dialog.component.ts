@@ -17,7 +17,7 @@ export class DeleteDialogComponent {
   }
 
   confirmDelete(): void {
-    this.dataService.deleteIssue(this.data.id);
+    this.dataService.deleteDonation(this.data.id);
   }
 
 }

@@ -3,11 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Issue } from 'src/app/model/Issue';
+import { Donation } from 'src/app/model/donation.interface';
 import { DataService } from 'src/app/services/data.service';
 
-export class DonationDataSource extends DataSource<Issue> {
-  
+export class DonationDataSource extends DataSource<Donation> {
+
   _filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -18,47 +18,49 @@ export class DonationDataSource extends DataSource<Issue> {
     this._filterChange.next(filter);
   }
 
-  filteredData: Issue[] = [];
-  renderedData: Issue[] = [];
+  filteredData: Donation[] = [];
+  renderedData: Donation[] = [];
 
-  constructor(public _exampleDatabase: DataService,
+  constructor(
+    public _dataService: DataService,
     public _paginator: MatPaginator,
-    public _sort: MatSort) {
+    public _sort: MatSort
+  ) {
     super();
     // Reset to the first page when the user changes the filter.
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Issue[]> {
-    
+  connect(): Observable<Donation[]> {
+
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
-      this._exampleDatabase.dataChange,
+      this._dataService.dataChange,
       this._sort.sortChange,
       this._filterChange,
       this._paginator.page
     ];
 
-    this._exampleDatabase.getAllIssues();
-
+    this._dataService.getAllDonations();
 
     return merge(...displayDataChanges).pipe(map(() => {
 
-      // Filter data
-      this.filteredData = this._exampleDatabase.data.slice().filter((issue: Issue) => {
-        const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
-        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-      });
+        // Filter data
+        this.filteredData = this._dataService.data.slice().filter((donation: Donation) => {
+          const searchStr = (donation.id + donation.name + donation.phone + donation.donation_type).toLowerCase() + donation.quantity;
+          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+        });
 
-      // Sort filtered data
-      const sortedData = this.sortData(this.filteredData.slice());
+        // Sort filtered data
+        const sortedData = this.sortData(this.filteredData.slice());
 
-      // Grab the page's slice of the filtered sorted data.
-      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-      this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-      return this.renderedData;
-    }
+        // Grab the page's slice of the filtered sorted data.
+        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+        this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+        return this.renderedData;
+      }
+
     ));
 
   }
@@ -66,24 +68,23 @@ export class DonationDataSource extends DataSource<Issue> {
   disconnect() { }
 
   /** Returns a sorted copy of the database data. */
-  sortData(data: Issue[]): Issue[] {
+  sortData(data: Donation[]): Donation[] {
 
     if (!this._sort.active || this._sort.direction === '') {
       return data;
     }
 
     return data.sort((a, b) => {
-        
+
       let propertyA: number | string = '';
       let propertyB: number | string = '';
 
       switch (this._sort.active) {
         case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
-        case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
-        case 'url': [propertyA, propertyB] = [a.url, b.url]; break;
-        case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
-        case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;
+        case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
+        case 'phone': [propertyA, propertyB] = [a.phone, b.phone]; break;
+        case 'donation_type': [propertyA, propertyB] = [a.donation_type, b.donation_type]; break;
+        case 'quantity': [propertyA, propertyB] = [a.quantity, b.quantity]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
@@ -91,7 +92,7 @@ export class DonationDataSource extends DataSource<Issue> {
 
       return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
     });
-    
+
   }
 
 }

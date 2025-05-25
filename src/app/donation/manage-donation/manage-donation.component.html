@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Angular Material Table CRUD</span>
+  <span>Manage Donations</span>
   <span class="spacer"></span>
   Reload data:
   <button mat-icon-button (click)="refresh()">
@@ -11,7 +11,7 @@
 
   <div class="form">
     <mat-form-field floatPlaceholder="never" color="accent">
-      <input matInput #filter placeholder="Filter issues">
+      <input matInput #filter placeholder="Filter Donations">
     </mat-form-field>
   </div>
 
@@ -26,30 +26,30 @@
       <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="state">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.state}}</mat-cell>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.phone}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="url">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Url</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.url}}</mat-cell>
+    <ng-container matColumnDef="donation_type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Donation Type</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.donation_type}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="created_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.quantity}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="updated_at">
+    <!-- <ng-container matColumnDef="updated_at">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Updated at</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <!-- actions -->
     <ng-container matColumnDef="actions">
@@ -60,11 +60,11 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.name, row.phone, row.donation_type, row.quantity)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.state, row.url)">
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.name, row.phone, row.donation_type)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </mat-cell>

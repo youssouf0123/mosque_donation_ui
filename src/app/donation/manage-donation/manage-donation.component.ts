@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Issue } from 'src/app/model/Issue';
 
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
@@ -12,6 +11,9 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
 
 import { fromEvent } from 'rxjs';
 import { DonationDataSource } from './donation.data.source';
+import { Donation } from 'src/app/model/donation.interface';
+
+// FOLLOWING THIS TUTORIAL: https://stackblitz.com/edit/angular-material-table-crud?file=src%2Fapp%2Fapp.component.ts
 
 @Component({
   selector: 'manage-donation',
@@ -20,16 +22,17 @@ import { DonationDataSource } from './donation.data.source';
 })
 export class ManageDonationComponent implements OnInit {
 
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
+  displayedColumns = ['id', 'name', 'phone', 'donation_type', 'quantity', 'actions'];
 
-  exampleDatabase: DataService | null;
   dataSource: DonationDataSource | null;
   index: number;
   id: number;
 
-  constructor(public httpClient: HttpClient,
+  constructor(
+    public httpClient: HttpClient,
     public dialog: MatDialog,
-    public dataService: DataService) { }
+    public dataService: DataService
+  ) { }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -43,57 +46,76 @@ export class ManageDonationComponent implements OnInit {
     this.loadData();
   }
 
-  addNew(issue: Issue) {
+  addNew(donation: Donation) {
+
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: { issue: issue }
+      data: { donation: donation }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.dataService.dataChange.value.push(this.dataService.getDialogData());
         this.refreshTable();
       }
+
     });
+
   }
 
-  startEdit(i: number, id: number, title: string, state: string, url: string, created_at: string, updated_at: string) {
+  startEdit(i: number, id: number, name: string, phone: string, donation_type: string, quantity: number) {
+
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
-    console.log(this.index);
+
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { id: id, title: title, state: state, url: url, created_at: created_at, updated_at: updated_at }
+      data: { id: id, name: name, phone: phone, donation_type: donation_type, quantity: quantity }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => { // triggered because of [mat-dialog-close]="1" on the close button
+
       if (result === 1) {
+
         // When using an edit things are little different, firstly we find record inside DataService by id
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        // Then you update that record using data from dialogData (values you enetered)
-        this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        const foundIndex = this.dataService.dataChange.value.findIndex(x => x.id === this.id);
+        
+        // console.debug('foundIndex => ' + foundIndex);
+        // console.debug(this.dataService.dataChange.value[foundIndex]);
+
+        // Then you update that record using data from dialogData (values you entered)
+        this.dataService.dataChange.value[foundIndex] = this.dataService.getDialogData(); // this is updating with -1 index value!
+        
         // And lastly refresh table
         this.refreshTable();
       }
+
     });
+
   }
 
-  deleteItem(i: number, id: number, title: string, state: string, url: string) {
+  deleteItem(i: number, id: number, name: string, phone: string, donation_type: string, quantity: number) {
+
     this.index = i;
     this.id = id;
+
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, title: title, state: state, url: url }
+      data: { id: id, name: name, phone: phone, donation_type: donation_type, quantity: quantity }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        const foundIndex = this.dataService.dataChange.value.findIndex(x => x.id === this.id);
         // for delete we use splice in order to remove single object from DataService
-        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.dataService.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
       }
+
     });
+
   }
 
 
@@ -123,9 +145,8 @@ export class ManageDonationComponent implements OnInit {
 
   public loadData() {
 
-    // this.exampleDatabase = new DataService(this.httpClient);
     this.dataSource = new DonationDataSource(this.dataService, this.paginator, this.sort);
-    
+
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
       // .distinctUntilChanged()
@@ -136,4 +157,5 @@ export class ManageDonationComponent implements OnInit {
         this.dataSource.filter = this.filter.nativeElement.value;
       });
   }
+
 }

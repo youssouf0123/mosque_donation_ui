@@ -4,5 +4,4 @@ export interface Donation {
     phone: string;
     donation_type: string;
     quantity: number;
-    // showedSaveOrUpdate: string;
 }

@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {Component, Inject} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -10,8 +10,11 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class EditDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+  constructor(
+    public dialogRef: MatDialogRef<EditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    public dataService: DataService
+  ) {}
 
   formControl = new FormControl('', [
     Validators.required
@@ -33,7 +36,7 @@ export class EditDialogComponent {
   }
 
   stopEdit(): void {
-    this.dataService.updateIssue(this.data);
+    this.dataService.updateDonation(this.data);
   }
 
 }

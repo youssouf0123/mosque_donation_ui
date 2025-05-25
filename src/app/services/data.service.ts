@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Issue } from '../model/Issue';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Donation } from '../model/donation.interface';
 
 @Injectable()
 export class DataService {
 
-    private readonly API_URL = 'https://api.github.com/repos/angular/angular/issues';
+    private apiServerUrl = environment.apiUrl;
+    
+    dataChange: BehaviorSubject<Donation[]> = new BehaviorSubject<Donation[]>([]);
 
-    dataChange: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
     // Temporarily stores data from dialogs
     dialogData: any;
 
     constructor(private httpClient: HttpClient) { }
 
-    get data(): Issue[] {
+    get data(): Donation[] {
         return this.dataChange.value;
     }
 
@@ -23,27 +25,29 @@ export class DataService {
     }
 
     /** CRUD METHODS */
-    getAllIssues(): void {
-        this.httpClient.get<Issue[]>(this.API_URL).subscribe(data => {
-            this.dataChange.next(data);
+    getAllDonations(): void {
+        this.httpClient.get<Donation[]>(`${this.apiServerUrl}/donation`).subscribe(data => {
+          this.dataChange.next(data);
         },
-            (error: HttpErrorResponse) => {
-                console.log(error.name + ' ' + error.message);
-            });
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          // console.log(error.name + ' ' + error.message);
+        });
     }
 
     // DEMO ONLY, you can find working methods below
-    addIssue(issue: Issue): void {
-        this.dialogData = issue;
+    addDonation(donation: Donation): void {
+        this.dialogData = donation;
     }
 
-    updateIssue(issue: Issue): void {
-        this.dialogData = issue;
+    updateDonation(donation: Donation): void {
+        this.dialogData = donation;
     }
 
-    deleteIssue(id: number): void {
+    deleteDonation(id: number): void {
         console.log(id);
     }
+
 }
 
 
