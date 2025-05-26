@@ -48,7 +48,7 @@ export class ManageDonationServerSideComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log('Hello');
+
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
