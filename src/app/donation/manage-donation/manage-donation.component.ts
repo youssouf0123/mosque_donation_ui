@@ -13,6 +13,8 @@ import { fromEvent } from 'rxjs';
 import { DonationDataSource } from './donation.data.source';
 import { Donation } from 'src/app/model/donation.interface';
 
+import { ChangeDetectorRef } from '@angular/core';
+
 // FOLLOWING THIS TUTORIAL: https://stackblitz.com/edit/angular-material-table-crud?file=src%2Fapp%2Fapp.component.ts
 
 @Component({
@@ -31,13 +33,18 @@ export class ManageDonationComponent implements OnInit {
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public dataService: DataService
+    public dataService: DataService,
+		private cdRef: ChangeDetectorRef
   ) { }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
 
+  ngAfterViewInit() {
+		this.cdRef.detectChanges(); // Force update so Angular is happy
+  }
+  
   ngOnInit() {
     this.loadData();
   }
@@ -118,14 +125,12 @@ export class ManageDonationComponent implements OnInit {
 
   }
 
-
   private refreshTable() {
     // Refreshing table using paginator
     // Thanks yeager-j for tips
     // https://github.com/marinantonio/angular-mat-table-crud/issues/12
     this.paginator._changePageSize(this.paginator.pageSize);
   }
-
 
   /*   // If you don't need a filter or a pagination this can be simplified, you just use code from else block
     // OLD METHOD:

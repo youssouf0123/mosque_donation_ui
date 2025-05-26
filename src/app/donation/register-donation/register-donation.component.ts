@@ -46,24 +46,25 @@ export class RegisterDonationComponent implements OnInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private donationService: DonationService,
+		private donationService: DonationService
 	) { }
 
 	ngOnInit() {
-		this.getProducts()
+		this.getDonations()
 	}
 
 	ngAfterViewInit() {
 		// this.dataSource = new MatTableDataSource<Product>( this.products );
-		this.dataSource.paginator = this.paginator
-		this.dataSource.sort = this.prdTbSort
+		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.prdTbSort;
 	}
 
-	public getProducts(): void {
+	public getDonations(): void {
+		
 		this.donationService.getDonations().subscribe(
 			(response: Donation[]) => {
 				this.dataSource.data = response as Donation[]
-				console.log(this.dataSource.data)
+				console.debug(this.dataSource.data)
 			},
 			(error: HttpErrorResponse) => {
 				alert(error.message)
@@ -117,7 +118,7 @@ export class RegisterDonationComponent implements OnInit {
 					}
 
 					// this.products.push( response );
-					this.getProducts()
+					this.getDonations()
 				},
 				(error: HttpErrorResponse) => {
 					alert(error.message)
@@ -185,7 +186,7 @@ export class RegisterDonationComponent implements OnInit {
 								)
 								return
 							}
-							this.getProducts()
+							this.getDonations()
 							this.name = ""
 							this.quantity = 0
 							this.phone = ""
