@@ -7,7 +7,10 @@ import { RecipientComponent } from './recipient/recipient.component';
 import { RegisterDonationComponent } from './register-donation/register-donation.component';
 import { ManageDonationComponent } from './manage-donation/manage-donation.component';
 import { DataService } from '../services/data.service';
+import { GithubService } from '../services/github.service';
+
 import { NotificationService } from '../services/notification.service';
+import { ManageDonationServerSideComponent } from './manage-donation-server-side/manage-donation-server-side.component';
 
 const routes: Routes = [
 	{
@@ -32,6 +35,10 @@ const routes: Routes = [
 			{
 				path: 'manage-donations-2',
 				component: ManageDonationComponent
+			},
+			{
+				path: 'manage-donations-3',
+				component: ManageDonationServerSideComponent
 			}
 		]
 	}
@@ -44,7 +51,7 @@ const routes: Routes = [
 		CommonModule
 	],
 	exports: [RouterModule],
-	providers: [DataService, NotificationService]
+	providers: [DataService, NotificationService, GithubService]
 })
 
 export class DonationRoutingModule { }

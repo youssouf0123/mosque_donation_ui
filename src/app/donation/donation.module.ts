@@ -17,6 +17,7 @@ import { ManageDonationComponent } from './manage-donation/manage-donation.compo
 import { AddDialogComponent } from './manage-donation/dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './manage-donation/dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './manage-donation/dialogs/delete/delete.dialog.component';
+import { ManageDonationServerSideComponent } from './manage-donation-server-side/manage-donation-server-side.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DeleteDialogComponent } from './manage-donation/dialogs/delete/delete.d
     ManageDonationComponent,
     AddDialogComponent,
     EditDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    ManageDonationServerSideComponent
   ],
   imports: [
     DonationRoutingModule,

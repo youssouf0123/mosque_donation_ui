@@ -18,6 +18,8 @@ const MENUITEMS = [
 
 	{ state: 'manage-donations-2', type: 'link', name: 'Donations - CRUD', icon: 'view_comfy' },
 
+	// { state: 'manage-donations-3', type: 'link', name: 'Material Table - Server Side Paging', icon: 'view_comfy' },
+
 	// { state: 'donors', type: 'link', name: 'Donors', icon: 'assistant' },
 
 	{ state: 'recipients', type: 'link', name: 'Recipients', icon: 'blur_circular' }
