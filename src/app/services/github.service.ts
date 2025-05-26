@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { GithubApi } from '../donation/manage-donation-server-side/manage-donation-server-side.component';
 import { SortDirection } from '@angular/material/sort';
+import { GithubApi } from '../model/github-api.interface';
 
 @Injectable({
   providedIn: 'root',
