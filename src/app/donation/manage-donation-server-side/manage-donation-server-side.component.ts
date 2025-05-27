@@ -71,8 +71,6 @@ export class ManageDonationServerSideComponent implements OnInit {
         }),
         map((data) => {
           
-          console.debug(data);
-
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = data === null;
@@ -81,14 +79,10 @@ export class ManageDonationServerSideComponent implements OnInit {
             return [];
           }
 
-          // console.debug('returning data.items!');
-          // console.debug(data.content);
-          console.debug(data.content.length);
-
           // Only refresh the result length if there is new data. In case of rate
           // limit errors, we do not want to reset the paginator to zero, as that
           // would prevent users from re-triggering requests.
-          this.resultsLength = data.content.length;
+          this.resultsLength = data.totalElements;
           return data.content;
         })
       )
