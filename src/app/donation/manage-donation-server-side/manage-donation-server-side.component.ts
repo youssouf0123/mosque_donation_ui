@@ -15,6 +15,7 @@ import {
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { GithubIssue } from 'src/app/model/github-issue.interface';
+import { Donation } from 'src/app/model/donation.interface';
 
 @Component({
   selector: 'app-manage-donation-server-side',
@@ -25,11 +26,11 @@ export class ManageDonationServerSideComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  displayedColumns = ['id', 'name', 'phone', 'donation_type', 'quantity'];
 
-  data: GithubIssue[] = [];
+  data: Donation[] = [];
 
-  pageSizes = [10, 30, 50];
+  pageSizes = [5, 10, 30, 50];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -63,12 +64,15 @@ export class ManageDonationServerSideComponent implements OnInit {
               filterValue,
               this.sort.active,
               this.sort.direction,
-              this.paginator.pageIndex + 1,
+              this.paginator.pageIndex,
               this.paginator.pageSize
             )
             .pipe(catchError(() => observableOf(null)));
         }),
         map((data) => {
+          
+          console.debug(data);
+
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = data === null;
@@ -77,11 +81,15 @@ export class ManageDonationServerSideComponent implements OnInit {
             return [];
           }
 
+          // console.debug('returning data.items!');
+          // console.debug(data.content);
+          console.debug(data.content.length);
+
           // Only refresh the result length if there is new data. In case of rate
           // limit errors, we do not want to reset the paginator to zero, as that
           // would prevent users from re-triggering requests.
-          this.resultsLength = data.total_count;
-          return data.items;
+          this.resultsLength = data.content.length;
+          return data.content;
         })
       )
       .subscribe((data) => (this.data = data));
