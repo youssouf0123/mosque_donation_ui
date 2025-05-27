@@ -14,7 +14,6 @@ import {
 } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { GithubIssue } from 'src/app/model/github-issue.interface';
 import { Donation } from 'src/app/model/donation.interface';
 
 @Component({
@@ -58,7 +57,12 @@ export class ManageDonationServerSideComponent implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          var filterValue = this.searchKeywordFilter.value == null ? '' : this.searchKeywordFilter.value;
+          var filterValue = this.searchKeywordFilter.value == null ? '' : 'name:' + this.searchKeywordFilter.value;
+          
+          // console.debug('filtering ' + filterValue + '!');
+
+          // GET /donations?page=0&size=10&filter=donorName:John,amount>100&sort=amount&order=desc
+
           return this.githubService
             .getRepoIssues(
               filterValue,
