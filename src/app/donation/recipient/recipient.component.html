@@ -1,80 +1,83 @@
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<mat-toolbar color="primary">
+  <span>Recipients</span>
+  <span class="spacer"></span>
+  Reload data:
+  <button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</mat-toolbar>
 
-	<div class="row w-100">
+<div class="container mat-elevation-z8">
 
-		<div class="col-md-6 offset-md-3"> <!-- Center the column in the row -->
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter Donations">
+    </mat-form-field>
+  </div>
 
-			<h1>Add Recipient</h1>
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+  
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
 
-			<div class="register-form border p-4 rounded shadow bg-white">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+    </ng-container>
 
-				<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+    </ng-container>
 
-					<mat-form-field class="form-field" appearance="outline">
-						<mat-label> First Name
-						</mat-label>
-						<input matInput formControlName="firstName" required>
-						<mat-error *ngIf="userForm.controls.firstName.touched && userForm.controls.firstName.invalid">
-							<span *ngIf="userForm.controls.firstName.errors.required">This field is mandatory.</span>
-							<span *ngIf="userForm.controls.firstName.errors.pattern">This field is invalid.</span>
-						</mat-error>
-					</mat-form-field>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.phone}}</mat-cell>
+    </ng-container>
 
-					<mat-form-field class="form-field" appearance="outline">
-						<mat-label> Last Name
-						</mat-label>
-						<input matInput formControlName="lastName" required>
-						<mat-error *ngIf="userForm.controls.lastName.touched && userForm.controls.lastName.invalid">
-							<span *ngIf="userForm.controls.lastName.errors.required">This field is mandatory.</span>
-							<span *ngIf="userForm.controls.lastName.errors.pattern">This field is invalid.</span>
-						</mat-error>
-					</mat-form-field>
+    <ng-container matColumnDef="donation_type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Donation Type</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.donation_type}}</mat-cell>
+    </ng-container>
 
-					<div class="row">
-						<div class="col-md-6">
-							<mat-form-field appearance="fill">
-								<mat-label>Country Code</mat-label>
-								<mat-select formControlName="selectedCountryCode">
-									<mat-option *ngFor="let country of countries" [value]="country.dialCode">
-										{{ country.name }} ({{ country.dialCode }})
-									</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</div>
-						<div class="col-md-6">
-							<mat-form-field appearance="fill">
-								<mat-label>Phone Number</mat-label>
-								<input matInput formControlName="phoneNumber" placeholder="e.g. 5551234567">
-								<mat-error *ngIf="userForm.controls.phoneNumber.touched && userForm.controls.phoneNumber.invalid">
-									<span *ngIf="userForm.controls.phoneNumber.errors.required">This field is mandatory.</span>
-									<span *ngIf="userForm.controls.phoneNumber.errors.pattern">This field is invalid.</span>
-								</mat-error>
-							</mat-form-field>
-						</div>
-					</div>
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.quantity}}</mat-cell>
+    </ng-container>
 
-					<mat-form-field class="form-field" appearance="outline">
-						<mat-label> E-mail
-						</mat-label>
-						<input matInput formControlName="email" required>
-						<mat-error *ngIf="userForm.controls.email.touched && userForm.controls.email.invalid">
-							<span *ngIf="userForm.controls.email.errors.required">This field is mandatory.</span>
-							<span *ngIf="userForm.controls.email.errors.pattern">This field is invalid.</span>
-						</mat-error>
-					</mat-form-field>
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
 
-					<!-- <button mat-raised-button color="primary" type="submit">Log In</button> -->
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.name, row.phone, row.donation_type, row.quantity)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary">Register</button>
-						<button type="button" (click)="onReset()" class="btn btn-warning float-right">Reset</button>
-					</div>
-					
-				</form>
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.name, row.phone, row.donation_type, row.quantity)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-			</div>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
-		</div>
-	</div>
 
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 </div>

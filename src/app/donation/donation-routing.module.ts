@@ -5,7 +5,6 @@ import { HomeComponent } from '../donation/home/home.component'
 import { DonorComponent } from '../donation/donor/donor.component'
 import { RecipientComponent } from './recipient/recipient.component';
 import { RegisterDonationComponent } from './register-donation/register-donation.component';
-import { ManageDonationComponent } from './manage-donation/manage-donation.component';
 import { DataService } from '../services/data.service';
 import { GithubService } from '../services/github.service';
 
@@ -31,10 +30,6 @@ const routes: Routes = [
 			{
 				path: 'manage-donations',
 				component: RegisterDonationComponent
-			},
-			{
-				path: 'manage-donations-2',
-				component: ManageDonationComponent
 			},
 			{
 				path: 'manage-donations-3',

@@ -12,11 +12,11 @@ import { RegisterDonationComponent } from './register-donation/register-donation
 import { DemoMaterialModule } from '../demo-material-module';
 import { AddDonationComponent } from './add-donation/add-donation.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
-import { ManageDonationComponent } from './manage-donation/manage-donation.component';
 
-import { AddDialogComponent } from './manage-donation/dialogs/add/add.dialog.component';
-import { EditDialogComponent } from './manage-donation/dialogs/edit/edit.dialog.component';
-import { DeleteDialogComponent } from './manage-donation/dialogs/delete/delete.dialog.component';
+import { AddDialogComponent } from './recipient/dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './recipient/dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './recipient/dialogs/delete/delete.dialog.component';
+
 import { ManageDonationServerSideComponent } from './manage-donation-server-side/manage-donation-server-side.component';
 
 @NgModule({
@@ -27,7 +27,6 @@ import { ManageDonationServerSideComponent } from './manage-donation-server-side
     RegisterDonationComponent,
     AddDonationComponent,
     ConfirmDeleteComponent,
-    ManageDonationComponent,
     AddDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent,
