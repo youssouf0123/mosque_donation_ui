@@ -27,7 +27,7 @@ export class DataService {
 
   /** CRUD METHODS */
   getAllDonations(): void {
-    this.httpClient.get<Donation[]>(`${this.apiServerUrl}/donation`).subscribe(data => {
+    this.httpClient.get<Donation[]>(`${this.apiServerUrl}/donations`).subscribe(data => {
       this.dataChange.next(data);
     },
       (error: HttpErrorResponse) => {
@@ -38,7 +38,7 @@ export class DataService {
 
   // DEMO ONLY, you can find working methods below
   addDonation(donation: Donation): void {
-    this.httpClient.post(`${this.apiServerUrl}/donation`, donation).subscribe(data => {
+    this.httpClient.post(`${this.apiServerUrl}/donations`, donation).subscribe(data => {
       this.dialogData = donation;
       this.toasterService.show('Successfully added', 'OK', 3000);
     },
@@ -48,7 +48,7 @@ export class DataService {
   }
 
   updateDonation(donation: Donation): void {
-    this.httpClient.put(`${this.apiServerUrl}/donation`, donation).subscribe(data => {
+    this.httpClient.put(`${this.apiServerUrl}/donations`, donation).subscribe(data => {
       this.dialogData = donation;
       this.toasterService.show('Successfully edited', 'OK', 3000);
     },
@@ -59,7 +59,7 @@ export class DataService {
   }
 
   deleteDonation(id: number): void {
-    this.httpClient.delete(`${this.apiServerUrl}/donation/${id}`).subscribe(data => {
+    this.httpClient.delete(`${this.apiServerUrl}/donations/${id}`).subscribe(data => {
       this.toasterService.show('Successfully deleted', 'OK', 3000);
     },
       (err: HttpErrorResponse) => {

@@ -27,7 +27,7 @@ export class GithubService {
     // console.debug('sort column => ' + sort);
 
     const href = 'https://api.github.com/search/issues';
-    const requestUrl = `${this.apiServerUrl}/donation?filter=${filter}&sort=${sort}&order=${order}&page=${page}&size=${perpage}`;
+    const requestUrl = `${this.apiServerUrl}/donations?filter=${filter}&sort=${sort}&order=${order}&page=${page}&size=${perpage}`;
     // const requestUrl = `${this.apiServerUrl}/donation?page=${page}&size=${perpage}&filter=${filter}+in:title+repo:angular/components&sort=${sort}&order=${order}`;
 
     // console.debug(requestUrl);

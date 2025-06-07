@@ -3,10 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Donation } from 'src/app/model/donation.interface';
-import { DataService } from 'src/app/services/data.service';
+import { Recipient } from 'src/app/model/recipient.interface';
+import { RecipientDataService } from 'src/app/services/recipient.data.service';
 
-export class DonationDataSource extends DataSource<Donation> {
+export class DonationDataSource extends DataSource<Recipient> {
 
   _filterChange = new BehaviorSubject('');
 
@@ -18,11 +18,11 @@ export class DonationDataSource extends DataSource<Donation> {
     this._filterChange.next(filter);
   }
 
-  filteredData: Donation[] = [];
-  renderedData: Donation[] = [];
+  filteredData: Recipient[] = [];
+  renderedData: Recipient[] = [];
 
   constructor(
-    public _dataService: DataService,
+    public _dataService: RecipientDataService,
     public _paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -32,7 +32,7 @@ export class DonationDataSource extends DataSource<Donation> {
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Donation[]> {
+  connect(): Observable<Recipient[]> {
 
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
@@ -47,8 +47,8 @@ export class DonationDataSource extends DataSource<Donation> {
     return merge(...displayDataChanges).pipe(map(() => {
 
         // Filter data
-        this.filteredData = this._dataService.data.slice().filter((donation: Donation) => {
-          const searchStr = (donation.id + donation.name + donation.phone + donation.donation_type).toLowerCase() + donation.quantity;
+        this.filteredData = this._dataService.data.slice().filter((donation: Recipient) => {
+          const searchStr = (donation.id + donation.firstName + donation.lastName + donation.dateOfBirth + donation.gender).toLowerCase() + donation.phoneNumber + donation.status.toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -68,7 +68,7 @@ export class DonationDataSource extends DataSource<Donation> {
   disconnect() { }
 
   /** Returns a sorted copy of the database data. */
-  sortData(data: Donation[]): Donation[] {
+  sortData(data: Recipient[]): Recipient[] {
 
     if (!this._sort.active || this._sort.direction === '') {
       return data;
@@ -81,10 +81,15 @@ export class DonationDataSource extends DataSource<Donation> {
 
       switch (this._sort.active) {
         case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
-        case 'phone': [propertyA, propertyB] = [a.phone, b.phone]; break;
-        case 'donation_type': [propertyA, propertyB] = [a.donation_type, b.donation_type]; break;
-        case 'quantity': [propertyA, propertyB] = [a.quantity, b.quantity]; break;
+        case 'firstName': [propertyA, propertyB] = [a.firstName, b.firstName]; break;
+        case 'lastName': [propertyA, propertyB] = [a.lastName, b.lastName]; break;
+        
+        // todo: number field
+        // case 'dateOfBirth': [propertyA, propertyB] = [a.dateOfBirth, b.dateOfBirth]; break;
+
+        case 'gender': [propertyA, propertyB] = [a.gender, b.gender]; break;
+        case 'phoneNumber': [propertyA, propertyB] = [a.phoneNumber, b.phoneNumber]; break;
+        case 'status': [propertyA, propertyB] = [a.status, b.status]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
