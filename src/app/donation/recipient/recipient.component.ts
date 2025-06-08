@@ -9,12 +9,12 @@ import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 
 import { fromEvent } from 'rxjs';
-import { DonationDataSource } from './donation.data.source';
 // import { Donation } from 'src/app/model/donation.interface';
 
 import { ChangeDetectorRef } from '@angular/core';
 import { RecipientDataService } from 'src/app/services/recipient.data.service';
 import { Recipient } from 'src/app/model/recipient.interface';
+import { RecipientDataSource } from './recipient.data.source';
 
 // FOLLOWING THIS TUTORIAL: https://stackblitz.com/edit/angular-material-table-crud?file=src%2Fapp%2Fapp.component.ts
 
@@ -25,9 +25,9 @@ import { Recipient } from 'src/app/model/recipient.interface';
 })
 export class RecipientComponent implements OnInit {
 
-  displayedColumns = ['id', 'firstName', 'lastName', 'dateOfBirth', 'gender', 'phoneNumber', 'status'];
+  displayedColumns = ['id', 'firstName', 'lastName', 'dateOfBirth', 'gender', 'phoneNumber', 'status', 'actions'];
 
-  dataSource: DonationDataSource | null;
+  dataSource: RecipientDataSource | null;
   index: number;
   id: number;
 
@@ -54,10 +54,10 @@ export class RecipientComponent implements OnInit {
     this.loadData();
   }
 
-  addNew(donation: Recipient) {
+  addNew(recipient: Recipient) {
 
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: { donation: donation }
+      data: { recipient: recipient }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -73,14 +73,23 @@ export class RecipientComponent implements OnInit {
 
   }
 
-  startEdit(i: number, id: number, name: string, phone: string, donation_type: string, quantity: number) {
+  startEdit(
+    i: number, 
+    id: number, 
+    firstName: string, 
+    lastName: string, 
+    dateOfBirth: string, 
+    gender: string, 
+    phoneNumber: string, 
+    status: string
+  ) {
 
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
 
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { id: id, name: name, phone: phone, donation_type: donation_type, quantity: quantity }
+      data: { id: id, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, gender: gender, phoneNumber: phoneNumber, status: status }
     });
 
     dialogRef.afterClosed().subscribe(result => { // triggered because of [mat-dialog-close]="1" on the close button
@@ -104,13 +113,24 @@ export class RecipientComponent implements OnInit {
 
   }
 
-  deleteItem(i: number, id: number, name: string, phone: string, donation_type: string, quantity: number) {
+  deleteItem(
+    i: number, 
+    id: number, 
+    firstName: string, 
+    lastName: string, 
+    dateOfBirth: string, 
+    gender: string, 
+    phoneNumber: string, 
+    status: string
+  ) {
 
     this.index = i;
     this.id = id;
 
+    console.debug(firstName + ', ' + lastName);
+    
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, name: name, phone: phone, donation_type: donation_type, quantity: quantity }
+      data: { id: id, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, gender: gender, phoneNumber: phoneNumber, status: status }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -151,7 +171,7 @@ export class RecipientComponent implements OnInit {
 
   public loadData() {
 
-    this.dataSource = new DonationDataSource(this.recipientDataService, this.paginator, this.sort);
+    this.dataSource = new RecipientDataSource(this.recipientDataService, this.paginator, this.sort);
 
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)

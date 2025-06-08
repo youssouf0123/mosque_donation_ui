@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Recipient } from 'src/app/model/recipient.interface';
 import { RecipientDataService } from 'src/app/services/recipient.data.service';
 
-export class DonationDataSource extends DataSource<Recipient> {
+export class RecipientDataSource extends DataSource<Recipient> {
 
   _filterChange = new BehaviorSubject('');
 
@@ -48,7 +48,8 @@ export class DonationDataSource extends DataSource<Recipient> {
 
         // Filter data
         this.filteredData = this._dataService.data.slice().filter((donation: Recipient) => {
-          const searchStr = (donation.id + donation.firstName + donation.lastName + donation.dateOfBirth + donation.gender).toLowerCase() + donation.phoneNumber + donation.status.toLowerCase();
+          const id = (donation != null) ? donation.id : '';
+          const searchStr = (id + donation.firstName + donation.lastName + donation.dateOfBirth + donation.gender + donation.phoneNumber + donation.status).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 

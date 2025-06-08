@@ -3,7 +3,7 @@ export interface Recipient {
     firstName: string;
     lastName: string;
     dateOfBirth: Date;
-    gender: string;
+    gender: number;
     phoneNumber: string;
-    status: string;
+    status: number;
 }
